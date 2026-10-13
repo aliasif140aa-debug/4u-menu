@@ -1,6 +1,6 @@
-const CACHE = '4u-menu-v2';
+const CACHE = '4u-menu-v3';
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./', 'index.html', 'menu.js', 'manifest.json', 'apple-touch-icon.png', 'img/ccs.png', 'img/amilla.png'])));
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./', 'index.html', 'menu.js', 'manifest.json', 'apple-touch-icon.png', 'ccs.png', 'amilla.png'])));
   self.skipWaiting();
 });
 self.addEventListener('activate', e => {

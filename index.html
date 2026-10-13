@@ -22,12 +22,8 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{touch-action:manipulation;background:var(--bg)}
 body{margin:0;color:var(--text);font-family:'Poppins',-apple-system,BlinkMacSystemFont,"SF Pro Text",Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;
-  padding-bottom:calc(100px + var(--safe-b));
-  background:
-    radial-gradient(60% 30% at 100% 0%,rgba(122,88,255,.35),transparent 70%),
-    radial-gradient(70% 30% at 0% 18%,rgba(111,207,98,.10),transparent 70%),
-    var(--bg);
-  background-repeat:no-repeat}
+  padding-bottom:calc(100px + var(--safe-b));background:var(--bg);position:relative}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:520px;z-index:-1;pointer-events:none;background:radial-gradient(70% 80% at 100% 0%,rgba(122,88,255,.35),transparent 70%),radial-gradient(70% 60% at 0% 60%,rgba(111,207,98,.10),transparent 70%)}
 /* hero */
 header{padding:calc(22px + var(--safe-t)) 18px 14px;text-align:center}
 .logos{display:flex;align-items:center;justify-content:center;gap:16px}
@@ -199,7 +195,7 @@ body{background-attachment:scroll}
 </head>
 <body>
 <header>
-  <div class="logos"><img class="ccs" src="img/ccs.png" alt="Corporate Concierge Services"><i></i><img class="am" src="img/amilla.png" alt="Amilla Maldives"></div>
+  <div class="logos"><img class="ccs" src="ccs.png" alt="Corporate Concierge Services"><i></i><img class="am" src="amilla.png" alt="Amilla Maldives"></div>
   <div class="title"><span class="t1">4U CAFE'</span><span class="t2">MENU</span></div>
   <div class="search">
     <input id="q" type="search" placeholder="Search the menu…" autocomplete="off">
@@ -208,7 +204,7 @@ body{background-attachment:scroll}
 </header>
 <nav><div class="row" id="tabs"></div></nav>
 <main id="menu"></main>
-<footer class="note"><div class="logos"><img class="ccs" src="img/ccs.png" alt=""><i></i><img class="am" src="img/amilla.png" alt=""></div>Prices in MVR · Ask staff about allergens</footer>
+<footer class="note"><div class="logos"><img class="ccs" src="ccs.png" alt=""><i></i><img class="am" src="amilla.png" alt=""></div>Prices in MVR · Ask staff about allergens</footer>
 
 <button id="bar"><span><span class="cnt" id="barCnt">0</span>View order</span><span id="barTotal"></span></button>
 <div id="sheet"><div class="panel" id="panel"></div></div>
@@ -220,7 +216,7 @@ body{background-attachment:scroll}
 const ITEMS = [];
 MENU.forEach(c => c.items.forEach((it,i) => ITEMS.push({id:c.id+'-'+i, cat:c.id, catName:c.name, name:it[0], price:it[1], img:it[2], veg:!!it[3]})));
 const byId = Object.fromEntries(ITEMS.map(i=>[i.id,i]));
-const IMG = n => 'img/'+n+(n==='ccs'||n==='amilla'?'.png':'.jpg');
+const IMG = n => n+(n==='ccs'||n==='amilla'?'.png':'.jpg');
 
 let cart = {}; try{ cart = JSON.parse(localStorage.getItem('4u-cart')||'{}') }catch(e){}
 let vegOnly = false, query = '', placed = null;
