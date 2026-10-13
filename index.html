@@ -238,12 +238,87 @@ body{background-attachment:scroll}
 #splash .btn{margin-top:22px;width:100%;background:linear-gradient(90deg,#ffd166,#ffbf47);color:#2a1560;box-shadow:0 10px 24px rgba(255,191,71,.3);animation:cardUp .6s .7s cubic-bezier(.22,1,.36,1) both}
 .bp{position:absolute;left:50%;top:50%;border-radius:50%;pointer-events:none;opacity:0;animation:burst .95s cubic-bezier(.1,.8,.3,1) forwards;z-index:2}
 @keyframes burst{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.2)}}
+
+/* ---- item notes + opening hours ---- */
+.addn{display:block;margin-top:6px;border:0;background:none;padding:2px 0;font:inherit;font-size:13px;font-weight:600;color:#6d4aff}
+.nin{display:block;width:100%;margin-top:6px;border:0;border-radius:10px;padding:9px 11px;font:inherit;font-size:14px;color:#1b1040;background:#fff;box-shadow:inset 0 0 0 1.5px #ddd5f7;outline:none}
+.nin:focus{box-shadow:inset 0 0 0 2px #6d4aff}
+.line{align-items:flex-start}.line .qty,.line .t{margin-top:2px}
+.slip small.sn{color:#6d4aff;font-style:italic}
+.hrs{margin-top:14px;align-items:center;gap:8px;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid transparent}
+.hrs i{width:8px;height:8px;border-radius:50%;flex:none}
+.hrs.open{background:rgba(111,207,98,.14);border-color:rgba(111,207,98,.4);color:#b6f0ad}
+.hrs.open i{background:var(--green);box-shadow:0 0 0 0 rgba(111,207,98,.6);animation:livePulse 1.8s ease-out infinite}
+.hrs.closed{background:rgba(255,143,171,.14);border-color:rgba(255,143,171,.45);color:#ffc2d1}
+.hrs.closed i{background:#ff8fab}
+@keyframes livePulse{to{box-shadow:0 0 0 8px rgba(111,207,98,0)}}
+
+/* ---- animation pack ---- */
+header{position:relative}
+.snd{position:absolute;right:16px;top:calc(14px + var(--safe-t));width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:var(--muted);display:flex;align-items:center;justify-content:center;padding:0;z-index:2}
+.snd svg{width:18px;height:18px}.snd.on{background:var(--gold);border-color:var(--gold);color:#2a1560}
+/* 1 intro */
+@keyframes introUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes introFade{from{opacity:0}to{opacity:1}}
+.intro .logos{animation:introFade .9s both}
+.intro .title .t1{animation:introUp .7s .15s both}
+.intro .title .t2{animation:introUp .85s .3s cubic-bezier(.22,1,.36,1) both}
+.intro .hrs,.intro .search{animation:introUp .6s .5s both}
+.intro nav{animation:introFade .6s .6s both}
+/* 2 reveal on scroll */
+.item{transition:opacity .4s ease,transform .45s cubic-bezier(.22,1,.36,1)}
+.item.in{transition:opacity .4s ease,transform .45s cubic-bezier(.22,1,.36,1)}
+.item.rv{opacity:0;transform:translateY(18px)}
+/* 3 sliding tab indicator */
+nav .row{position:relative}
+nav button{position:relative;z-index:1}
+nav button.on{background:transparent;border-color:transparent;color:#2a1560}
+.ind{position:absolute;left:0;top:0;border-radius:22px;background:var(--gold);z-index:0;opacity:0;pointer-events:none;transition:transform .38s cubic-bezier(.22,1,.36,1),width .38s cubic-bezier(.22,1,.36,1),height .2s,opacity .2s}
+/* 4 swipe to remove + undo */
+.lw{position:relative;overflow:hidden}
+.delbg{position:absolute;inset:0;background:#ff5a6e;display:flex;align-items:center;justify-content:flex-end;padding-right:22px;color:#fff;font-weight:700;font-size:14px}
+.lw .line{position:relative;background:#f5f2ff;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.swh{margin:0 0 4px!important;font-size:12px!important}
+.snack{position:fixed;left:50%;bottom:calc(24px + var(--safe-b));transform:translate(-50%,160%);z-index:70;display:flex;align-items:center;gap:14px;padding:12px 14px 12px 18px;border-radius:16px;background:#1d0c4a;color:#fff;font-size:14px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.4);transition:transform .35s cubic-bezier(.22,1,.36,1);max-width:92vw}
+.snack.show{transform:translate(-50%,0)}
+.snack button{border:0;background:var(--gold);color:#2a1560;font:inherit;font-weight:800;border-radius:10px;padding:7px 14px}
+/* 5 empty state */
+.emp{text-align:center;padding:26px 0 14px;color:#6b5fa8}
+.emp p{margin:8px 0 2px;font-size:17px;font-weight:700;color:#2a1560}.emp small{font-size:13px}
+.emp-svg{width:150px;height:128px;animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-7px)}}
+.es path{fill:none;stroke:#b9aee8;stroke-width:4;stroke-linecap:round;stroke-dasharray:40;stroke-dashoffset:40;opacity:0;animation:steam 1.8s ease-in-out infinite;animation-delay:var(--s)}
+/* 6 order bar peek + 12 closed */
+.blw{display:flex;align-items:center;min-width:0}
+#bar .lbl{display:inline-block;max-width:52vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:opacity .15s,transform .15s}
+#bar .lbl.out{opacity:0;transform:translateY(8px)}
+#bar .lbl.peek{color:#2a1560}
+#bar.closed .lbl::before{content:"\1F319  "}
+.hrs.closed i{animation:closedPulse 2s ease-in-out infinite}
+@keyframes closedPulse{50%{transform:scale(1.7);opacity:.45}}
+/* 8 place-the-order shimmer + flip */
+.dl.busy::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.5) 50%,transparent 70%);transform:translateX(-100%);animation:sweep 1.05s linear infinite}
+@keyframes sweep{to{transform:translateX(100%)}}
+.dl.ok{animation:flipOk .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes flipOk{from{transform:perspective(500px) rotateX(-85deg);opacity:.4}to{transform:none;opacity:1}}
+.bp{font-family:-apple-system,"Apple Color Emoji","Segoe UI Emoji",sans-serif}
+/* 11 scroll-driven header (supported browsers only) */
+@supports (animation-timeline: scroll()){
+  body::before{animation:glowFade linear both;animation-timeline:scroll(root);animation-range:0 500px}
+  @keyframes glowFade{to{opacity:.12;transform:translateY(-90px)}}
+  header .title{transform-origin:center top;animation:titleShrink linear both;animation-timeline:scroll(root);animation-range:0 300px}
+  @keyframes titleShrink{to{transform:scale(.9) translateY(-10px);opacity:.5}}
+  nav{animation:navSh linear both;animation-timeline:scroll(root);animation-range:260px 340px}
+  @keyframes navSh{from{box-shadow:none}to{box-shadow:0 8px 20px rgba(0,0,0,.35)}}
+}
 </style>
 </head>
-<body>
+<body class="intro">
 <header>
+  <button class="snd" id="snd" aria-label="Sound on/off" title="Sound"></button>
   <div class="logos"><img class="ccs" src="ccs.png" alt="Corporate Concierge Services"><i></i><img class="am" src="amilla.png" alt="Amilla Maldives"></div>
   <div class="title"><span class="t1">4U CAFE'</span><span class="t2">MENU</span></div>
+  <div id="hours" class="hrs" style="display:none"></div>
   <div class="search">
     <input id="q" type="search" placeholder="Search the menu…" autocomplete="off">
     <button class="chip" id="vegBtn">🌱 Veg</button>
@@ -253,7 +328,7 @@ body{background-attachment:scroll}
 <main id="menu"></main>
 <footer class="note"><div class="logos"><img class="ccs" src="ccs.png" alt=""><i></i><img class="am" src="amilla.png" alt=""></div>Prices in MVR · Ask staff about allergens</footer>
 
-<button id="bar"><span><span class="cnt" id="barCnt">0</span>View order</span><span id="barTotal"></span></button>
+<button id="bar"><span class="blw"><span class="cnt" id="barCnt">0</span><span class="lbl" id="barLbl">View order</span></span><span id="barTotal"></span></button>
 <div id="sheet"><div class="panel" id="panel"></div></div>
 <div id="splash"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
 <div class="sp-load"><div class="sp-logo"><b>4U</b><span>CAFE'</span></div>
@@ -273,6 +348,7 @@ body{background-attachment:scroll}
 <div class="sp-done"><div class="sp-tick" id="spTick"><svg viewBox="0 0 120 120"><circle class="tc" cx="60" cy="60" r="54" transform="rotate(-90 60 60)"/><path class="tk" d="M36 62l16 16 32-34"/></svg></div>
 <div class="sp-glass"><h2>Thank you for your order!</h2><p>Please check your chat. The Cafe' will confirm your order shortly.</p><div class="sp-no" id="spNo"></div></div>
 <button class="btn" data-finish>Back to menu</button></div></div>
+<div class="snack" id="snack"><span id="snackT"></span><button data-undo>Undo</button></div>
 <div class="toast" id="toast"></div>
 
 <script src="menu.js"></script>
@@ -284,42 +360,46 @@ const byId = Object.fromEntries(ITEMS.map(i=>[i.id,i]));
 const IMG = n => n+(n==='ccs'||n==='amilla'?'.png':'.jpg');
 
 let cart = {}; try{ cart = JSON.parse(localStorage.getItem('4u-cart')||'{}') }catch(e){}
-let vegOnly = false, query = '', placed = null;
+let itemNotes = {}; try{ itemNotes = JSON.parse(localStorage.getItem('4u-inotes')||'{}') }catch(e){}
+const openNotes = new Set(Object.keys(itemNotes));
+let firstPaint = true, vegOnly = false, query = '', placed = null;
 const $ = s => document.querySelector(s);
 const mvr = n => 'MVR ' + n.toFixed(2);
-const save = () => { try{ localStorage.setItem('4u-cart', JSON.stringify(cart)) }catch(e){} };
+const save = () => { try{ localStorage.setItem('4u-cart', JSON.stringify(cart)); localStorage.setItem('4u-inotes', JSON.stringify(itemNotes)) }catch(e){} };
 const esc = s => s.replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const count = () => Object.values(cart).reduce((a,b)=>a+b,0);
 const total = () => Object.entries(cart).reduce((a,[id,q])=>a+byId[id].price*q,0);
 
 function tabs(){
-  $('#tabs').innerHTML = MENU.map(c=>`<button data-c="${c.id}">${esc(c.name)}</button>`).join('');
+  $('#tabs').innerHTML = MENU.map(c=>`<button data-c="${c.id}">${esc(c.name)}</button>`).join('')+'<span class="ind" id="ind"></span>';
 }
 const ctl = (id,n) => n?`<div class="qty"><button data-m="${id}">−</button><b>${n}</b><button data-p="${id}">+</button></div>`:`<button class="add" data-p="${id}" aria-label="Add">+</button>`;
 function render(){
   const q = query.trim().toLowerCase();
-  let html = '';
+  let html = '', k0 = 0;
   MENU.forEach(c=>{
     const list = ITEMS.filter(i=>i.cat===c.id && (!vegOnly||i.veg) && (!q || (i.name+' '+c.name).toLowerCase().includes(q)));
     if(!list.length) return;
     html += `<section class="sec" id="s-${c.id}"><div class="sec-h">${c.img?`<img src="${IMG(c.img)}" alt="">`:''}<div><h2>${esc(c.name)}</h2><span>${list.length} item${list.length>1?'s':''}</span></div></div>`;
     list.forEach(i=>{
       const n = cart[i.id]||0;
-      html += `<div class="item${n?' in':''}">${i.img?`<img src="${IMG(i.img)}" alt="" decoding="async">`:''}
+      const st = firstPaint && k0<6 ? ` style="animation:introUp .6s ${(.55+(k0++)*.07).toFixed(2)}s both"` : '';
+      html += `<div class="item${n?' in':''}"${st}>${i.img?`<img src="${IMG(i.img)}" alt="" decoding="async">`:''}
         <div class="info"><div class="name">${esc(i.name)}${i.veg?'<span class="veg" title="Vegetarian"></span>':''}</div><div class="price">${mvr(i.price)}</div></div>
         <div class="ctl" data-ctl="${i.id}">${ctl(i.id,n)}</div></div>`;
     });
     html += '</section>';
   });
   $('#menu').innerHTML = html || '<div class="empty">Nothing found 🍽️</div>';
-  bar(); watch();
+  bar(); watch(); reveal(); firstPaint=false;
 }
 let lastN=0;
 function bar(){
   const n = count();
   $('#bar').classList.toggle('show', n>0);
   if(n>lastN && n>1){const b=$('#bar');b.classList.remove('pulse');void b.offsetWidth;b.classList.add('pulse')} lastN=n;
-  $('#barCnt').textContent = n; $('#barTotal').textContent = mvr(total());
+  roll($('#barCnt'), n, v=>String(Math.round(v))); roll($('#barTotal'), total(), mvr);
+  const hs=cafeStatus(); $('#bar').classList.toggle('closed', !!(hs&&!hs.open));
 }
 function fly(from){
   if(!from.animate) return;
@@ -335,8 +415,9 @@ function fly(from){
   a.onfinish=()=>{ el.remove(); const b=$('#bar'); b.classList.remove('pulse'); void b.offsetWidth; b.classList.add('pulse'); const c=$('#barCnt'); c.classList.remove('hit'); void c.offsetWidth; c.classList.add('hit') };
 }
 function change(id,d){
-  cart[id] = (cart[id]||0)+d; if(cart[id]<=0) delete cart[id];
+  cart[id] = (cart[id]||0)+d; if(cart[id]<=0){ delete cart[id]; delete itemNotes[id]; openNotes.delete(id) }
   save(); if(d>0 && navigator.vibrate) navigator.vibrate(10);
+  if(d>0){ sfx.pop(); if(!$('#sheet').classList.contains('show')) peek(byId[id].name) }
   const n=cart[id]||0;
   document.querySelectorAll('[data-ctl="'+id+'"]').forEach(e=>{
     const wasAdd=!!e.querySelector('.add'); e.innerHTML=ctl(id,n);
@@ -350,30 +431,38 @@ function change(id,d){
 }
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
 
+let sheetTotal=0;
 function openCart(){
+  if(!$('#sheet').classList.contains('show')) sheetTotal=total();
   const ids = Object.keys(cart);
   const p = $('#panel');
   if(placed){
     p.innerHTML = `<button class="x" data-close>✕</button><div class="done"><div class="big">✅</div><h3>Order ready</h3>
       <p class="hint">Show this to the 4U Cafe' staff to place your order.</p>
-      <div class="slip"><div class="sh"><b>4U CAFE'</b><span>No. ${placed.no}</span></div><div class="sd">${placed.date}</div><hr>${placed.lines.map(l=>`<div><span>${l.q}× ${esc(l.n)}<small>${esc(l.cat)}</small></span><span>${l.t.toFixed(2)}</span></div>`).join('')}<hr>
+      <div class="slip"><div class="sh"><b>4U CAFE'</b><span>No. ${placed.no}</span></div><div class="sd">${placed.date}</div><hr>${placed.lines.map(l=>`<div><span>${l.q}× ${esc(l.n)}<small>${esc(l.cat)}</small>${l.note?`<small class="sn">\u201c${esc(l.note)}\u201d</small>`:''}</span><span>${l.t.toFixed(2)}</span></div>`).join('')}<hr>
       <div><b>Total</b><b>${mvr(placed.total)}</b></div>${placed.note?`<hr><div><span>Note: ${esc(placed.note)}</span></div>`:''}</div></div>
       <p class="hint" style="color:#2a1560;font-weight:600;margin-top:12px">Tap <b>Place the order</b> and send it to the Cafe\' number${CAFE_VIBER?': +'+CAFE_VIBER:''}.</p>
       <button class="btn dl" data-dl><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow" d="M21 3L10 14M21 3l-7 18-4-7-7-4 18-7z"/></svg><span>Place the order</span></button>
       <button class="btn sec2" data-copy>Copy order text</button><button class="btn sec2" data-new>Start a new order</button>`;
   } else if(!ids.length){
-    p.innerHTML = `<button class="x" data-close>✕</button><h3>Your order</h3><div class="empty">Your order is empty</div>`;
+    p.innerHTML = `<button class="x" data-close>✕</button><h3>Your order</h3>${EMPTY_SVG}`;
   } else {
-    p.innerHTML = `<button class="x" data-close>✕</button><h3>Your order</h3>` +
-      ids.map(id=>{const i=byId[id],q=cart[id];return `<div class="line"><div class="n">${esc(i.name)}<small>${esc(i.catName)} · ${mvr(i.price)}</small></div>
-        <div class="qty"><button data-m="${id}">−</button><b>${q}</b><button data-p="${id}">+</button></div><div class="t">${(i.price*q).toFixed(2)}</div></div>`}).join('') +
+    p.innerHTML = `<button class="x" data-close>✕</button><h3>Your order</h3><p class="hint swh">← Swipe an item left to remove it</p>` +
+      ids.map(id=>{const i=byId[id],q=cart[id];const has=openNotes.has(id)||itemNotes[id];
+        return `<div class="lw" data-lw="${id}"><div class="delbg"><span>🗑 Remove</span></div><div class="line" data-swipe="${id}"><div class="n">${esc(i.name)}<small>${esc(i.catName)} · ${mvr(i.price)}</small>${has?`<input class="nin" data-nid="${id}" maxlength="80" value="${esc(itemNotes[id]||'')}" placeholder="e.g. no onions, extra spicy">`:`<button class="addn" data-addn="${id}">＋ Add note</button>`}</div>
+        <div class="qty"><button data-m="${id}">−</button><b>${q}</b><button data-p="${id}">+</button></div><div class="t">${(i.price*q).toFixed(2)}</div></div></div>`}).join('') +
       `<div class="total"><span>Total</span><span>${mvr(total())}</span></div>
       <textarea id="note" rows="2" placeholder="Notes (allergies, no onions, room / table…)">${esc(localStorage.getItem('4u-note')||'')}</textarea>
-      <button class="btn" data-place>Place order</button><button class="btn sec2" data-clear>Clear order</button>
-      <p class="hint">This shows an order summary to hand to staff. Nothing is sent online.</p>`;
+      ${(()=>{const h=cafeStatus(); return h&&!h.open?`<button class="btn" disabled style="opacity:.55">Cafe\u2019 closed \u00b7 opens ${h.next}</button><p class="hint">You can build your order now and place it when the Cafe\u2019 opens.</p>`:`<button class="btn" data-place>Place order</button>`})()}
+      <button class="btn sec2" data-clear>Clear order</button>
+      <p class="hint">Nothing is sent until you choose an app to share your order.</p>`;
   }
+  { const tt=document.querySelector('.panel .total span:last-child'); if(tt){ const from=sheetTotal; sheetTotal=total(); if(from!==sheetTotal){ tt.textContent=mvr(from); tt._v=from; roll(tt,sheetTotal,mvr) } } }
   $('#sheet').classList.add('show');
 }
+// Opening hours (Maldives time). One or more periods; a period may run past midnight. Set to null to turn off.
+// Example: [{open:'07:00',close:'22:00'}]  or  [{open:'07:00',close:'11:00'},{open:'12:00',close:'23:00'}]
+const HOURS = [{open:'09:00',close:'11:30'},{open:'14:00',close:'17:00'},{open:'21:00',close:'00:00'}];
 const CAFE_VIBER = '9607602270'; // cafe's Viber number with country code, digits only (e.g. '9607771234')
 const LOGO={}; ['ccs','amilla'].forEach(n=>{const i=new Image();i.src=IMG(n);LOGO[n]=i});
 function orderCanvas(o){
@@ -381,9 +470,9 @@ function orderCanvas(o){
   const m=document.createElement('canvas').getContext('2d');
   const wrap=(t,max,font)=>{m.font=font;const out=[];let l='';t.split(' ').forEach(x=>{const n=l?l+' '+x:x;if(m.measureText(n).width>max&&l){out.push(l);l=x}else l=n});if(l)out.push(l);return out};
   const nameW=W-P*2-70-150;
-  const rows=o.lines.map(l=>({q:l.q,unit:l.t/l.q,t:l.t,ls:wrap(l.n,nameW,'600 26px '+F),cat:l.cat}));
+  const rows=o.lines.map(l=>({q:l.q,unit:l.t/l.q,t:l.t,ls:wrap(l.n,nameW,'600 26px '+F),cat:l.cat,nl:l.note?wrap('\u201c'+l.note+'\u201d',nameW,'italic 22px '+F):[]}));
   const noteLs=o.note?wrap(o.note,W-P*2-40,'24px '+F):[];
-  const rowH=r=>r.ls.length*32+(r.cat?28:0)+22;
+  const rowH=r=>r.ls.length*32+(r.cat?28:0)+r.nl.length*28+22;
   const H=270+rows.reduce((a,r)=>a+rowH(r),0)+160+(noteLs.length?64+noteLs.length*32:0)+290;
   const cv=document.createElement('canvas'); cv.width=W*S; cv.height=H*S;
   const c=cv.getContext('2d'); c.scale(S,S);
@@ -411,6 +500,7 @@ function orderCanvas(o){
     T(r.q+'×',P,ty,'700 26px '+F,'#6d4aff');
     r.ls.forEach((t,k)=>{T(t,P+70,ty+k*32,'600 26px '+F,'#1b1040')});
     if(r.cat) T(r.cat,P+70,ty+r.ls.length*32-2,'20px '+F,'#8a80b8');
+    r.nl.forEach((t,k)=>T(t,P+70,ty+r.ls.length*32+(r.cat?26:0)+k*28,'italic 22px '+F,'#6d4aff'));
     T(r.unit.toFixed(2),W-P-150,ty,'24px '+F,'#6b5fa8','right'); T(r.t.toFixed(2),W-P,ty,'700 26px '+F,'#1b1040','right');
     y+=h;
   });
@@ -442,11 +532,14 @@ function showSplash(){
   [1,2].forEach(i=>setTimeout(()=>{ st.classList.add('out'); setTimeout(()=>{ st.textContent=msgs[i]; st.classList.remove('out') },250) },i*950));
   setTimeout(()=>{ sp.classList.add('done'); if(navigator.vibrate) navigator.vibrate([20,50,20]);
     const cols=['#ffd166','#7a58ff','#5fd68e','#fff','#ff8fab','#9ae3ff'], tk=$('#spTick').getBoundingClientRect();
-    for(let i=0;i<32;i++){ const p=document.createElement('i'), ang=Math.random()*Math.PI*2, d=110+Math.random()*150, z=5+Math.random()*7;
-      p.className='bp'; p.style.cssText=`width:${z}px;height:${z}px;background:${cols[i%6]};left:${tk.left+tk.width/2}px;top:${tk.top+tk.height/2}px;--dx:${Math.cos(ang)*d}px;--dy:${Math.sin(ang)*d}px;animation-delay:${.25+Math.random()*.15}s;${i%3?'':'border-radius:2px'}`; sp.appendChild(p) }
+    const em=['\u2615','\ud83c\udf55','\ud83c\udf5f','\ud83c\udf54','\ud83e\udd64','\ud83c\udf69','\ud83c\udf6a','\ud83c\udf2e'];
+    sfx.chime();
+    for(let i=0;i<30;i++){ const p=document.createElement('i'), ang=Math.random()*Math.PI*2, d=110+Math.random()*150, z=5+Math.random()*7, food=i%2===0;
+      p.className='bp'; if(food){ p.textContent=em[(i/2)%em.length|0] }
+      p.style.cssText=(food?`font-size:${20+Math.random()*12}px;line-height:1;`:`width:${z}px;height:${z}px;background:${cols[i%6]};${i%3?'':'border-radius:2px;'}`)+`left:${tk.left+tk.width/2}px;top:${tk.top+tk.height/2}px;--dx:${Math.cos(ang)*d}px;--dy:${Math.sin(ang)*d}px;animation-delay:${.25+Math.random()*.15}s`; sp.appendChild(p) }
   },2900);
 }
-function finishOrder(){ const sp=$('#splash'); sp.classList.remove('show','done'); sp.querySelectorAll('.bp').forEach(e=>e.remove()); placed=null; cart={}; save(); render(); closeCart() }
+function finishOrder(){ const sp=$('#splash'); sp.classList.remove('show','done'); sp.querySelectorAll('.bp').forEach(e=>e.remove()); placed=null; cart={}; itemNotes={}; openNotes.clear(); save(); render(); closeCart() }
 async function placeOrder(btn){
   const label=btn.querySelector('span'), setIcon=h=>{btn.querySelector('svg')?.remove(); btn.insertAdjacentHTML('afterbegin',h)};
   const r=btn.getBoundingClientRect(), rp=document.createElement('i'), d=Math.max(r.width,40);
@@ -474,7 +567,7 @@ async function placeOrder(btn){
 }
 const closeCart = () => { const sh=$('#sheet'); if(!sh.classList.contains('show')) return; sh.classList.add('closing'); setTimeout(()=>sh.classList.remove('show','closing'),260) };
 const ICON_DL=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow" d="M21 3L10 14M21 3l-7 18-4-7-7-4 18-7z"/></svg>`, ICON_OK=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path class="check" d="M5 12.5l4.5 4.5L19 7.5"/></svg>`;
-function orderText(o){ return "4U Cafe' order "+o.no+"\n"+o.lines.map(l=>`${l.q}x ${l.n} (${l.cat}) - ${l.t.toFixed(2)}`).join('\n')+`\nTotal: ${mvr(o.total)}`+(o.note?`\nNote: ${o.note}`:''); }
+function orderText(o){ return "4U Cafe' order "+o.no+"\n"+o.lines.map(l=>`${l.q}x ${l.n} (${l.cat})${l.note?' ['+l.note+']':''} - ${l.t.toFixed(2)}`).join('\n')+`\nTotal: ${mvr(o.total)}`+(o.note?`\nNote: ${o.note}`:''); }
 
 document.addEventListener('click',e=>{
   const t = e.target.closest('button'); if(!t && e.target.id==='sheet'){closeCart();return}
@@ -484,19 +577,23 @@ document.addEventListener('click',e=>{
   else if(t.dataset.c){ const s=document.getElementById('s-'+t.dataset.c); if(s){ s.scrollIntoView({behavior:'smooth',block:'start'}) } else toast('Not in current filter') }
   else if(t.id==='bar'){ openCart() }
   else if('close' in t.dataset) closeCart();
-  else if('clear' in t.dataset){ cart={}; save(); render(); closeCart() }
+  else if('clear' in t.dataset){ cart={}; itemNotes={}; openNotes.clear(); save(); render(); closeCart() }
+  else if(t.id==='snd'){ snd=!snd; try{localStorage.setItem('4u-snd',snd?'1':'0')}catch(e){} sndUI(); if(snd){ ac(); sfx.pop() } }
+  else if('undo' in t.dataset){ if(undoFn){ const f=undoFn; undoFn=null; f() } $('#snack').classList.remove('show') }
+  else if(t.dataset.addn){ openNotes.add(t.dataset.addn); openCart(); const inp=document.querySelector('.nin[data-nid="'+t.dataset.addn+'"]'); if(inp) inp.focus() }
   else if('place' in t.dataset){
+    { const h=cafeStatus(); if(h&&!h.open){ toast('The Cafe\u2019 is closed. Opens '+h.next); openCart(); return } }
     const note = ($('#note').value||'').trim(); try{localStorage.setItem('4u-note',note)}catch(e){}
     const d=new Date(), z=n=>String(n).padStart(2,'0');
     placed = {no:'4U-'+z(d.getMonth()+1)+z(d.getDate())+'-'+z(d.getHours())+z(d.getMinutes()), date:d.toLocaleString([], {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}), count:count(),
-      lines:Object.entries(cart).map(([id,q])=>({q,n:byId[id].name,cat:byId[id].catName,t:byId[id].price*q})), total:total(), note};
+      lines:Object.entries(cart).map(([id,q])=>({q,n:byId[id].name,cat:byId[id].catName,t:byId[id].price*q,note:(itemNotes[id]||'').trim()})), total:total(), note};
     placed.blobP=orderBlob(placed);
     openCart();
   }
   else if('dl' in t.dataset) placeOrder(t);
   else if('finish' in t.dataset) finishOrder();
   else if('copy' in t.dataset){ (navigator.clipboard?navigator.clipboard.writeText(orderText(placed)):Promise.reject()).then(()=>toast('Copied!'),()=>toast('Copy not available')) }
-  else if('new' in t.dataset){ placed=null; cart={}; save(); render(); closeCart() }
+  else if('new' in t.dataset){ placed=null; cart={}; itemNotes={}; openNotes.clear(); save(); render(); closeCart() }
   else if(t.id==='vegBtn'){ vegOnly=!vegOnly; t.classList.toggle('on',vegOnly); render() }
 });
 let io, curTab=null; function watch(){
@@ -506,17 +603,91 @@ let io, curTab=null; function watch(){
     const id=en.target.id.slice(2); if(id===curTab) return; curTab=id;
     requestAnimationFrame(()=>{
       const row=$('#tabs'); document.querySelectorAll('#tabs button').forEach(b=>{
-        const on=b.dataset.c===id; if(b.classList.contains('on')!==on) b.classList.toggle('on',on);
+        const on=b.dataset.c===id; if(b.classList.contains('on')!==on) b.classList.toggle('on',on); if(on) moveInd(b);
         if(on){ const l=b.offsetLeft, rl=row.scrollLeft; if(l<rl+8||l+b.offsetWidth>rl+row.clientWidth-8) row.scrollLeft=Math.max(0,l-16) }
       });
     });
   },{rootMargin:'-70px 0px -75% 0px'});
   document.querySelectorAll('.sec').forEach(e=>io.observe(e));
 }
+document.addEventListener('input',e=>{ const t=e.target; if(t.classList&&t.classList.contains('nin')){ const v=t.value.slice(0,80); if(v.trim()) itemNotes[t.dataset.nid]=v; else delete itemNotes[t.dataset.nid]; save() } });
 let qt;
 $('#q').addEventListener('input',e=>{query=e.target.value;clearTimeout(qt);qt=setTimeout(render,200)});
 
-tabs(); render();
+
+// ---- opening hours ----
+const fmtT = m => { const h=Math.floor(m/60)%24, mm=m%60; return ((h%12)||12)+':'+String(mm).padStart(2,'0')+' '+(h<12?'AM':'PM') };
+const toM = t => { const [h,m]=t.split(':').map(Number); return h*60+(m||0) };
+function cafeStatus(){
+  const q=new URLSearchParams(location.search);
+  if(q.has('closed')) return {open:false,next:'7:00 AM'};
+  if(!HOURS||!HOURS.length) return null;
+  let h=0,m=0; try{ const p=new Intl.DateTimeFormat('en-GB',{timeZone:'Indian/Maldives',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+    h=+p.find(x=>x.type==='hour').value%24; m=+p.find(x=>x.type==='minute').value }catch(e){ const d=new Date(); h=d.getHours(); m=d.getMinutes() }
+  const now=h*60+m;
+  for(const p of HOURS){ const o=toM(p.open), c=toM(p.close);
+    if(o<c ? (now>=o&&now<c) : (now>=o||now<c)) return {open:true,until:fmtT(c)} }
+  const opens=HOURS.map(p=>toM(p.open)).sort((a,b)=>a-b);
+  return {open:false,next:fmtT(opens.find(o=>o>now)??opens[0])};
+}
+function hoursBanner(){
+  const el=$('#hours'), h=cafeStatus(); if(!el) return;
+  if(!h){ el.style.display='none'; return }
+  el.style.display='inline-flex'; el.className='hrs '+(h.open?'open':'closed');
+  el.innerHTML='<i></i>'+(h.open?'Open now · until '+h.until:'Closed now · opens at '+h.next);
+}
+let lastOpen=(cafeStatus()||{}).open;
+setInterval(()=>{ hoursBanner(); const o=(cafeStatus()||{}).open; if(o!==lastOpen){ lastOpen=o; if($('#sheet').classList.contains('show')&&!placed) openCart() } },60000);
+
+// ---- animation helpers ----
+const EMPTY_SVG=`<div class="emp"><svg class="emp-svg" viewBox="0 0 140 120" aria-hidden="true"><ellipse cx="70" cy="106" rx="48" ry="8" fill="#e4ddfb"/><path d="M100 62h8a10 10 0 0 1 0 22H96" fill="none" stroke="#c9bff3" stroke-width="5" stroke-linecap="round"/><path d="M36 54h66v22a30 30 0 0 1-30 30h-6a30 30 0 0 1-30-30z" fill="#fff" stroke="#c9bff3" stroke-width="3"/><path d="M36 64h66" stroke="#ffd166" stroke-width="5"/><g class="es"><path style="--s:0s" d="M54 42q-6-7 0-13t0-12"/><path style="--s:.3s" d="M70 40q-6-7 0-13t0-12"/><path style="--s:.6s" d="M86 42q-6-7 0-13t0-12"/></g></svg><p>Your order is empty</p><small>Tap <b>+</b> on any item to add it</small></div>`;
+let rio;
+function reveal(){
+  if(!('IntersectionObserver' in window)) return;
+  if(!rio) rio=new IntersectionObserver(es=>{ es.filter(e=>e.isIntersecting).forEach((en,k)=>{ const t=en.target; t.style.transitionDelay=Math.min(k,5)*55+'ms'; t.classList.remove('rv'); rio.unobserve(t); setTimeout(()=>{t.style.transitionDelay=''},800) }) },{rootMargin:'0px 0px -30px 0px'});
+  rio.disconnect(); const its=[...document.querySelectorAll('.item')], vh=innerHeight, tops=its.map(e=>e.getBoundingClientRect().top);
+  its.forEach((e,i)=>{ if(tops[i]>vh-20){ e.classList.add('rv'); rio.observe(e) } });
+}
+function moveInd(b){ const i=$('#ind'); if(!i) return; i.style.opacity=1; i.style.width=b.offsetWidth+'px'; i.style.height=b.offsetHeight+'px'; i.style.transform=`translate(${b.offsetLeft}px,${b.offsetTop}px)` }
+function roll(el,to,fmt){
+  const from=el._v==null?to:el._v; el._v=to; cancelAnimationFrame(el._r);
+  if(from===to){ el.textContent=fmt(to); return }
+  const t0=performance.now(), D=380, step=t=>{ const k=Math.min(1,(t-t0)/D), e=1-Math.pow(1-k,3); el.textContent=fmt(from+(to-from)*e); if(k<1) el._r=requestAnimationFrame(step) };
+  el._r=requestAnimationFrame(step);
+}
+let peekT;
+function peek(name){
+  const l=$('#barLbl'); if(!l) return; clearTimeout(peekT); l.classList.add('out');
+  setTimeout(()=>{ l.textContent='+ '+name; l.classList.remove('out'); l.classList.add('peek') },150);
+  peekT=setTimeout(()=>{ l.classList.add('out'); setTimeout(()=>{ l.textContent='View order'; l.classList.remove('out','peek') },150) },1500);
+}
+// sound (off by default)
+let snd=false, actx; try{ snd=localStorage.getItem('4u-snd')==='1' }catch(e){}
+function ac(){ if(!actx){ try{ actx=new (window.AudioContext||window.webkitAudioContext)() }catch(e){} } if(actx&&actx.state==='suspended') actx.resume(); return actx }
+function tone(f,t0,dur,type,vol,f2){ const c=ac(); if(!c) return; const o=c.createOscillator(), g=c.createGain(), T=c.currentTime+t0;
+  o.type=type||'sine'; o.frequency.setValueAtTime(f,T); if(f2) o.frequency.exponentialRampToValueAtTime(f2,T+dur);
+  g.gain.setValueAtTime(.0001,T); g.gain.exponentialRampToValueAtTime(vol||.08,T+.012); g.gain.exponentialRampToValueAtTime(.0001,T+dur);
+  o.connect(g); g.connect(c.destination); o.start(T); o.stop(T+dur+.03) }
+const sfx={ pop(){ if(snd) tone(520,0,.09,'sine',.09,900) }, rm(){ if(snd) tone(480,0,.12,'triangle',.07,240) },
+  chime(){ if(snd){ tone(784,0,.35,'sine',.08); tone(1047,.14,.35,'sine',.08); tone(1568,.28,.7,'sine',.07) } } };
+const sndUI=()=>{ const b=$('#snd'); b.classList.toggle('on',snd); b.innerHTML=snd?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M22 9l-6 6M16 9l6 6"/></svg>' };
+// swipe to remove + undo
+let sw=null, undoFn=null, undoT;
+function showUndo(text,fn){ undoFn=fn; $('#snackT').textContent=text; $('#snack').classList.add('show'); clearTimeout(undoT); undoT=setTimeout(()=>$('#snack').classList.remove('show'),4200) }
+function removeLine(id){
+  const lw=document.querySelector('.lw[data-lw="'+id+'"]'), q=cart[id], note=itemNotes[id]; if(!lw||!q) return;
+  sfx.rm(); if(navigator.vibrate) navigator.vibrate(12);
+  lw.style.height=lw.offsetHeight+'px'; requestAnimationFrame(()=>{ lw.style.transition='height .26s ease,opacity .26s ease'; lw.style.height='0'; lw.style.opacity='0' });
+  setTimeout(()=>{ change(id,-q); showUndo(byId[id].name+' removed',()=>{ change(id,q); if(note){ itemNotes[id]=note; openNotes.add(id); save() } if($('#sheet').classList.contains('show')) openCart() }) },270);
+}
+document.addEventListener('pointerdown',e=>{ const ln=e.target.closest&&e.target.closest('.line[data-swipe]'); if(!ln||e.target.closest('button,input')) return; sw={ln,id:ln.dataset.swipe,x:e.clientX,y:e.clientY,dx:0,lock:null} });
+document.addEventListener('pointermove',e=>{ if(!sw) return; const dx=e.clientX-sw.x, dy=e.clientY-sw.y;
+  if(sw.lock===null&&(Math.abs(dx)>8||Math.abs(dy)>8)) sw.lock=Math.abs(dx)>Math.abs(dy)*1.2?'x':'y';
+  if(sw.lock==='x'){ sw.dx=Math.min(0,dx); sw.ln.style.transition='none'; sw.ln.style.transform=`translateX(${sw.dx}px)` } else if(sw.lock==='y') sw=null });
+const swEnd=()=>{ if(sw&&sw.lock==='x'){ const {ln,id,dx}=sw; ln.style.transition='transform .25s ease'; if(dx<-Math.min(110,ln.offsetWidth*.35)){ ln.style.transform='translateX(-110%)'; removeLine(id) } else ln.style.transform='' } sw=null };
+document.addEventListener('pointerup',swEnd); document.addEventListener('pointercancel',swEnd);
+sndUI(); setTimeout(()=>{ document.body.classList.remove('intro'); document.querySelectorAll('.item[style*="introUp"]').forEach(e=>e.style.animation='') },2400);
+tabs(); render(); hoursBanner();
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
