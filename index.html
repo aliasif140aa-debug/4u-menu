@@ -189,6 +189,12 @@ textarea{width:100%;border:0;border-radius:14px;padding:13px;font:inherit;font-s
 .panel .total span:last-child{color:#5b36e8}
 #bar.pulse{animation:barPulse .3s ease}
 #bar .cnt.hit{animation:cntHit .4s cubic-bezier(.34,1.56,.64,1)}
+
+/* ---- scroll performance ---- */
+.item{transition:none;contain:layout style}
+.item.in{transition:none}
+nav{will-change:transform}
+body{background-attachment:scroll}
 </style>
 </head>
 <body>
@@ -238,7 +244,7 @@ function render(){
     html += `<section class="sec" id="s-${c.id}"><div class="sec-h">${c.img?`<img src="${IMG(c.img)}" alt="">`:''}<div><h2>${esc(c.name)}</h2><span>${list.length} item${list.length>1?'s':''}</span></div></div>`;
     list.forEach(i=>{
       const n = cart[i.id]||0;
-      html += `<div class="item${n?' in':''}">${i.img?`<img src="${IMG(i.img)}" alt="">`:''}
+      html += `<div class="item${n?' in':''}">${i.img?`<img src="${IMG(i.img)}" alt="" decoding="async">`:''}
         <div class="info"><div class="name">${esc(i.name)}${i.veg?'<span class="veg" title="Vegetarian"></span>':''}</div><div class="price">${mvr(i.price)}</div></div>
         <div class="ctl" data-ctl="${i.id}">${ctl(i.id,n)}</div></div>`;
     });
@@ -420,20 +426,22 @@ document.addEventListener('click',e=>{
   else if('new' in t.dataset){ placed=null; cart={}; save(); render(); closeCart() }
   else if(t.id==='vegBtn'){ vegOnly=!vegOnly; t.classList.toggle('on',vegOnly); render() }
 });
-let qt; let io; function watch(){
-  if(io) io.disconnect(); if(!('IntersectionObserver' in window)) return;
-  io=new IntersectionObserver(es=>{es.forEach(en=>{ if(en.isIntersecting){ const id=en.target.id.slice(2); document.querySelectorAll('#tabs button').forEach(b=>{const on=b.dataset.c===id; b.classList.toggle('on',on); if(on&&!b.matches(':hover')){ const r=$('#tabs'); r.scrollTo({left:b.offsetLeft-16,behavior:'smooth'}) }}) } })},{rootMargin:'-70px 0px -75% 0px'});
+let io, curTab=null; function watch(){
+  if(io) io.disconnect(); curTab=null; if(!('IntersectionObserver' in window)) return;
+  io=new IntersectionObserver(es=>{
+    const en=es.filter(e=>e.isIntersecting).pop(); if(!en) return;
+    const id=en.target.id.slice(2); if(id===curTab) return; curTab=id;
+    requestAnimationFrame(()=>{
+      const row=$('#tabs'); document.querySelectorAll('#tabs button').forEach(b=>{
+        const on=b.dataset.c===id; if(b.classList.contains('on')!==on) b.classList.toggle('on',on);
+        if(on){ const l=b.offsetLeft, rl=row.scrollLeft; if(l<rl+8||l+b.offsetWidth>rl+row.clientWidth-8) row.scrollLeft=Math.max(0,l-16) }
+      });
+    });
+  },{rootMargin:'-70px 0px -75% 0px'});
   document.querySelectorAll('.sec').forEach(e=>io.observe(e));
 }
+let qt;
 $('#q').addEventListener('input',e=>{query=e.target.value;clearTimeout(qt);qt=setTimeout(render,200)});
-
-// highlight current tab on scroll
-const tabEls = () => [...document.querySelectorAll('#tabs button')];
-addEventListener('scroll',()=>{
-  let cur = null;
-  MENU.forEach(c=>{const s=document.getElementById('s-'+c.id); if(s && s.getBoundingClientRect().top<120) cur=c.id});
-  tabEls().forEach(b=>{const on=b.dataset.c===cur; b.classList.toggle('on',on); if(on) b.scrollIntoView({inline:'center',block:'nearest'})});
-},{passive:true});
 
 tabs(); render();
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
