@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <title>4U Cafe' Menu</title>
 <style>
-:root{--d0:1.9s;
+:root{--d0:1.05s;
   --bg:#2f1568; --bg2:#3b2088; --line:rgba(255,255,255,.1);
   --accent:#7a58ff; --accent2:#9a82ff; --gold:#ffd166; --text:#fff; --muted:#c9bff3; --green:#6fcf62;
   --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
@@ -258,11 +258,11 @@ header{position:relative}
 /* 1 intro */
 @keyframes introUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
 @keyframes introFade{from{opacity:0}to{opacity:1}}
-.intro .logos{animation:introFade .9s var(--d0) both}
-.intro .title .t1{animation:introUp .7s calc(var(--d0) + .15s) both}
-.intro .title .t2{animation:introUp .85s calc(var(--d0) + .3s) cubic-bezier(.22,1,.36,1) both}
-.intro .hrs,.intro .search{animation:introUp .6s calc(var(--d0) + .5s) both}
-.intro nav{animation:introFade .6s calc(var(--d0) + .6s) both}
+.intro .logos{animation:introFade .5s calc(var(--d0) - .1s) both}
+.intro .title .t1{animation:introUp .5s calc(var(--d0) - .1s) both}
+.intro .title .t2{animation:introUp .55s var(--d0) cubic-bezier(.22,1,.36,1) both}
+.intro .hrs,.intro .search{animation:introUp .45s calc(var(--d0) + .1s) both}
+.intro nav{animation:introFade .4s calc(var(--d0) + .15s) both}
 /* 2 reveal on scroll */
 .item{transition:opacity .4s ease,transform .45s cubic-bezier(.22,1,.36,1)}
 .item.in{transition:opacity .4s ease,transform .45s cubic-bezier(.22,1,.36,1)}
@@ -312,19 +312,19 @@ nav button.on{background:transparent;border-color:transparent;color:#2a1560}
 /* ---- opening splash: logos + big 4U MENU, then fade away ---- */
 #intro{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;
   background:radial-gradient(90% 55% at 50% 38%,#4a2fc0 0%,#2f1568 58%,#1d0c4a 100%);
-  animation:introOut .65s 1.9s ease forwards}
+  animation:introOut .4s 1.05s ease forwards}
 @keyframes introOut{to{opacity:0;visibility:hidden;transform:scale(1.05)}}
-#intro .in-logos{position:absolute;top:calc(34px + var(--safe-t));left:0;right:0;display:flex;align-items:center;justify-content:center;gap:16px;animation:inDown .9s .1s cubic-bezier(.22,1,.36,1) both}
+#intro .in-logos{position:absolute;top:calc(34px + var(--safe-t));left:0;right:0;display:flex;align-items:center;justify-content:center;gap:16px;animation:inDown .6s .05s cubic-bezier(.22,1,.36,1) both}
 #intro .in-logos .ccs{height:50px;width:auto;border-radius:3px}
 #intro .in-logos .am{height:38px;width:auto}
 #intro .in-logos i{width:1px;height:38px;background:rgba(255,255,255,.3)}
 @keyframes inDown{from{opacity:0;transform:translateY(-60px)}to{opacity:1;transform:none}}
-#intro .in-title{margin:0;text-align:center;line-height:1;animation:inGrow 2s .25s cubic-bezier(.2,.7,.3,1) both}
-@keyframes inGrow{0%{opacity:0;transform:scale(.82)}28%{opacity:1}100%{opacity:1;transform:scale(1.12)}}
+#intro .in-title{margin:0;text-align:center;line-height:1;animation:inGrow 1.35s .1s cubic-bezier(.2,.7,.3,1) both}
+@keyframes inGrow{0%{opacity:0;transform:scale(.85)}25%{opacity:1}100%{opacity:1;transform:scale(1.1)}}
 #intro .t1{display:block;font-weight:300;font-size:34px;letter-spacing:.26em;padding-left:.26em;color:#fff}
 #intro .t2{display:block;font-family:'Anton','Oswald',Impact,'Arial Narrow',sans-serif;font-size:128px;letter-spacing:.02em;margin-top:4px;
   background:linear-gradient(#fff 55%,#d9cfff);-webkit-background-clip:text;background-clip:text;color:transparent}
-#intro .in-line{display:block;height:3px;width:0;margin:14px auto 0;border-radius:2px;background:linear-gradient(90deg,transparent,#ffd166,transparent);animation:inLine .9s .9s ease forwards}
+#intro .in-line{display:block;height:3px;width:0;margin:14px auto 0;border-radius:2px;background:linear-gradient(90deg,transparent,#ffd166,transparent);animation:inLine .5s .45s ease forwards}
 @keyframes inLine{to{width:70%}}
 @media (prefers-reduced-motion:reduce){:root{--d0:0s}#intro{display:none}}
 </style>
@@ -379,7 +379,7 @@ const IMG = n => n+(n==='ccs'||n==='amilla'?'.png':'.jpg');
 let cart = {}; try{ cart = JSON.parse(localStorage.getItem('4u-cart')||'{}') }catch(e){}
 let itemNotes = {}; try{ itemNotes = JSON.parse(localStorage.getItem('4u-inotes')||'{}') }catch(e){}
 const openNotes = new Set(Object.keys(itemNotes));
-const D0 = (()=>{ const v=document.documentElement.style.getPropertyValue('--d0'); return v?parseFloat(v):1.9 })();
+const D0 = (()=>{ const v=document.documentElement.style.getPropertyValue('--d0'); return v?parseFloat(v):1.05 })();
 let firstPaint = true, vegOnly = false, query = '', placed = null;
 const $ = s => document.querySelector(s);
 const mvr = n => 'MVR ' + n.toFixed(2);
@@ -401,7 +401,7 @@ function render(){
     html += `<section class="sec" id="s-${c.id}"><div class="sec-h">${c.img?`<img src="${IMG(c.img)}" alt="">`:''}<div><h2>${esc(c.name)}</h2><span>${list.length} item${list.length>1?'s':''}</span></div></div>`;
     list.forEach(i=>{
       const n = cart[i.id]||0;
-      const st = firstPaint && k0<6 ? ` style="animation:introUp .6s ${(D0+.55+(k0++)*.07).toFixed(2)}s both"` : '';
+      const st = firstPaint && k0<6 ? ` style="animation:introUp .45s ${(D0+.15+(k0++)*.05).toFixed(2)}s both"` : '';
       html += `<div class="item${n?' in':''}"${st}>${i.img?`<img src="${IMG(i.img)}" alt="" decoding="async">`:''}
         <div class="info"><div class="name">${esc(i.name)}${i.veg?'<span class="veg" title="Vegetarian"></span>':''}</div><div class="price">${mvr(i.price)}</div></div>
         <div class="ctl" data-ctl="${i.id}">${ctl(i.id,n)}</div></div>`;
@@ -693,7 +693,7 @@ document.addEventListener('pointermove',e=>{ if(!sw) return; const dx=e.clientX-
   if(sw.lock==='x'){ sw.dx=Math.min(0,dx); sw.ln.style.transition='none'; sw.ln.style.transform=`translateX(${sw.dx}px)` } else if(sw.lock==='y') sw=null });
 const swEnd=()=>{ if(sw&&sw.lock==='x'){ const {ln,dx}=sw; ln.style.transition='transform .25s ease'; if(dx<-70){ ln.style.transform='translateX(-190px)'; openSw=ln } else ln.style.transform='' } sw=null };
 document.addEventListener('pointerup',swEnd); document.addEventListener('pointercancel',swEnd);
-setTimeout(()=>{ const sp=document.getElementById('intro'); if(sp) sp.remove(); document.body.classList.remove('intro'); document.querySelectorAll('.item[style*="introUp"]').forEach(e=>e.style.animation='') },D0*1000+2400);
+setTimeout(()=>{ const sp=document.getElementById('intro'); if(sp) sp.remove(); document.body.classList.remove('intro'); document.querySelectorAll('.item[style*="introUp"]').forEach(e=>e.style.animation='') },D0*1000+1500);
 tabs(); render(); hoursBanner();
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
