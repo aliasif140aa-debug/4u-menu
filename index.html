@@ -295,7 +295,6 @@ function openCart(){
       <div><b>Total</b><b>${mvr(placed.total)}</b></div>${placed.note?`<hr><div><span>Note: ${esc(placed.note)}</span></div>`:''}</div></div>
       <p class="hint" style="color:#2a1560;font-weight:600;margin-top:12px">Tap <b>Place the order</b> and choose Viber to send it to the Cafe\' number${CAFE_VIBER?': +'+CAFE_VIBER:''}.</p>
       <button class="btn dl" data-dl><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow" d="M21 3L10 14M21 3l-7 18-4-7-7-4 18-7z"/></svg><span>Place the order</span></button>
-      ${CAFE_VIBER?`<a class="btn sec2" style="text-align:center;text-decoration:none" href="viber://chat?number=%2B${CAFE_VIBER}">Open Viber chat</a>`:''}
       <button class="btn sec2" data-copy>Copy order text</button><button class="btn sec2" data-new>Start a new order</button>`;
   } else if(!ids.length){
     p.innerHTML = `<button class="x" data-close>✕</button><h3>Your order</h3><div class="empty">Your order is empty</div>`;
@@ -310,7 +309,7 @@ function openCart(){
   }
   $('#sheet').classList.add('show');
 }
-const CAFE_VIBER = '9607305314'; // cafe's Viber number with country code, digits only (e.g. '9607771234')
+const CAFE_VIBER = '9607602270'; // cafe's Viber number with country code, digits only (e.g. '9607771234')
 const LOGO={}; ['ccs','amilla'].forEach(n=>{const i=new Image();i.src=IMG(n);LOGO[n]=i});
 function orderCanvas(o){
   const F='-apple-system,Helvetica,Arial,sans-serif', W=800, P=48, S=2;
