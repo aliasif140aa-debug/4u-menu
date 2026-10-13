@@ -191,6 +191,53 @@ textarea{width:100%;border:0;border-radius:14px;padding:13px;font:inherit;font-s
 .item.in{transition:none}
 nav{will-change:transform}
 body{background-attachment:scroll}
+
+/* ---- full-screen order splash ---- */
+#splash{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;text-align:center;padding:24px;overflow:hidden;background:#1d0c4a}
+#splash.show{display:flex;animation:fadeIn .35s ease}
+#splash .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.75;will-change:transform}
+#splash .b1{width:300px;height:300px;background:#6d4aff;top:-60px;left:-80px;animation:float1 7s ease-in-out infinite}
+#splash .b2{width:260px;height:260px;background:#ff6fa5;bottom:-60px;right:-70px;opacity:.5;animation:float2 8s ease-in-out infinite}
+#splash .b3{width:220px;height:220px;background:#ffd166;top:45%;left:55%;opacity:.28;animation:float1 9s ease-in-out infinite reverse}
+@keyframes float1{50%{transform:translate(60px,70px) scale(1.15)}}
+@keyframes float2{50%{transform:translate(-70px,-60px) scale(1.2)}}
+#splash .sp-load,#splash .sp-done{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+#splash .sp-done{display:none;width:100%;max-width:350px}
+#splash.done .sp-load{display:none}#splash.done .sp-done{display:flex}
+.sp-logo{display:flex;flex-direction:column;align-items:center;line-height:1;animation:logoIn .7s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes logoIn{from{transform:scale(.5);opacity:0}to{transform:none;opacity:1}}
+.sp-logo b{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:54px;letter-spacing:.02em;
+  background:linear-gradient(110deg,#fff 35%,#ffd166 50%,#fff 65%) 100% 0/250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 1.6s linear infinite}
+@keyframes shimmer{to{background-position:-100% 0}}
+.sp-logo span{font-weight:300;font-size:17px;letter-spacing:.34em;padding-left:.34em;color:#ffd166;margin-top:3px}
+
+/* burger build animation */
+.sp-burger{width:230px;height:195px;margin-top:18px;overflow:visible;animation:hop .55s 1.95s cubic-bezier(.34,1.56,.64,1)}
+@keyframes hop{0%,100%{transform:none}40%{transform:translateY(-14px) scale(1.04)}}
+.sp-burger .ly{opacity:0;animation:drop .5s cubic-bezier(.34,1.45,.64,1) forwards;animation-delay:var(--d);transform-origin:100px 150px}
+@keyframes drop{from{opacity:0;transform:translateY(-130px) rotate(var(--r,0deg))}to{opacity:1;transform:none}}
+.sp-burger .plate{animation:plateIn .5s ease both;transform-origin:100px 152px}
+@keyframes plateIn{from{opacity:0;transform:scaleX(.3)}to{opacity:1;transform:none}}
+.sp-burger .steam path{fill:none;stroke:rgba(255,255,255,.75);stroke-width:4;stroke-linecap:round;stroke-dasharray:40;stroke-dashoffset:40;opacity:0;animation:steam 1.4s ease-in-out infinite;animation-delay:calc(1.9s + var(--s))}
+@keyframes steam{0%{stroke-dashoffset:40;opacity:0;transform:translateY(8px)}35%{opacity:.9}100%{stroke-dashoffset:-40;opacity:0;transform:translateY(-14px)}}
+.sp-status{margin:30px 0 0;height:22px;color:#e4dcff;font-size:15px;letter-spacing:.05em;transition:opacity .25s,transform .25s}
+.sp-status.out{opacity:0;transform:translateY(6px)}
+.sp-tick{position:relative;width:118px;height:118px}
+.sp-tick svg{width:100%;height:100%;overflow:visible}
+.sp-tick .tc{fill:rgba(95,214,142,.18);stroke:#5fd68e;stroke-width:4;stroke-dasharray:340;stroke-dashoffset:340;animation:draw .7s ease forwards}
+.sp-tick .tk{fill:none;stroke:#fff;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:50;stroke-dashoffset:50;animation:draw .45s .55s ease forwards}
+.sp-tick::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(95,214,142,.55),transparent 70%);animation:glow 1.8s ease-in-out infinite;z-index:-1}
+@keyframes glow{50%{transform:scale(1.5);opacity:.35}}
+.sp-glass{margin-top:26px;width:100%;padding:24px 20px 22px;border-radius:26px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 20px 50px rgba(0,0,0,.3);animation:cardUp .7s .35s cubic-bezier(.22,1,.36,1) both}
+@keyframes cardUp{from{opacity:0;transform:translateY(40px) scale(.94)}to{opacity:1;transform:none}}
+.sp-glass h2{margin:0 0 10px;font-size:26px;font-weight:800;line-height:1.2;
+  background:linear-gradient(90deg,#fff,#ffe29a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sp-glass p{margin:0;color:#e4dcff;font-size:16px;line-height:1.55}
+.sp-no{display:inline-block;margin-top:16px;padding:6px 14px;border-radius:20px;background:rgba(255,209,102,.16);border:1px solid rgba(255,209,102,.4);color:#ffd166;font-weight:700;font-size:13px;letter-spacing:.1em}
+#splash .btn{margin-top:22px;width:100%;background:linear-gradient(90deg,#ffd166,#ffbf47);color:#2a1560;box-shadow:0 10px 24px rgba(255,191,71,.3);animation:cardUp .6s .7s cubic-bezier(.22,1,.36,1) both}
+.bp{position:absolute;left:50%;top:50%;border-radius:50%;pointer-events:none;opacity:0;animation:burst .95s cubic-bezier(.1,.8,.3,1) forwards;z-index:2}
+@keyframes burst{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.2)}}
 </style>
 </head>
 <body>
@@ -208,6 +255,24 @@ body{background-attachment:scroll}
 
 <button id="bar"><span><span class="cnt" id="barCnt">0</span>View order</span><span id="barTotal"></span></button>
 <div id="sheet"><div class="panel" id="panel"></div></div>
+<div id="splash"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="sp-load"><div class="sp-logo"><b>4U</b><span>CAFE'</span></div>
+<svg class="sp-burger" viewBox="0 0 200 170" aria-hidden="true">
+  <ellipse class="plate" cx="100" cy="153" rx="88" ry="12" fill="#fff" opacity=".92"/>
+  <ellipse class="plate" cx="100" cy="150" rx="62" ry="6" fill="#e6defc"/>
+  <g class="ly" style="--d:.15s;--r:-6deg"><path d="M44 148h112v-2a10 10 0 0 0-10-10H54a10 10 0 0 0-10 10z" fill="#e39a3e"/></g>
+  <g class="ly" style="--d:.4s;--r:5deg"><rect x="40" y="119" width="120" height="17" rx="8.5" fill="#6b3a24"/><rect x="48" y="123" width="30" height="3" rx="1.5" fill="#8a5237"/></g>
+  <g class="ly" style="--d:.65s;--r:-5deg"><path d="M42 109h116v7h-34l-9 13-9-13H42z" fill="#ffd23f"/></g>
+  <g class="ly" style="--d:.9s;--r:4deg"><path d="M40 108q10-11 20 0t20 0t20 0t20 0t20 0t20 0v-5H40z" fill="#6fcf62"/></g>
+  <g class="ly" style="--d:1.15s;--r:-4deg"><rect x="46" y="94" width="108" height="10" rx="5" fill="#ff5a4f"/></g>
+  <g class="ly" style="--d:1.4s;--r:6deg"><path d="M42 96q0-44 58-44t58 44z" fill="#f2b560"/><path d="M42 96q0-6 4-11h108q4 5 4 11z" fill="#e39a3e" opacity=".35"/>
+    <g fill="#fff4d6"><ellipse cx="78" cy="72" rx="4.5" ry="2.4" transform="rotate(-25 78 72)"/><ellipse cx="100" cy="64" rx="4.5" ry="2.4"/><ellipse cx="122" cy="72" rx="4.5" ry="2.4" transform="rotate(25 122 72)"/><ellipse cx="90" cy="82" rx="4.5" ry="2.4" transform="rotate(-10 90 82)"/><ellipse cx="113" cy="82" rx="4.5" ry="2.4" transform="rotate(10 113 82)"/></g></g>
+  <g class="steam"><path style="--s:0s" d="M78 44q-7-8 0-15t0-14"/><path style="--s:.25s" d="M100 38q-7-8 0-15t0-14"/><path style="--s:.5s" d="M122 44q-7-8 0-15t0-14"/></g>
+</svg>
+<p class="sp-status" id="spStatus">Preparing your order…</p></div>
+<div class="sp-done"><div class="sp-tick" id="spTick"><svg viewBox="0 0 120 120"><circle class="tc" cx="60" cy="60" r="54" transform="rotate(-90 60 60)"/><path class="tk" d="M36 62l16 16 32-34"/></svg></div>
+<div class="sp-glass"><h2>Thank you for your order!</h2><p>Please check your chat. The Cafe' will confirm your order shortly.</p><div class="sp-no" id="spNo"></div></div>
+<button class="btn" data-finish>Back to menu</button></div></div>
 <div class="toast" id="toast"></div>
 
 <script src="menu.js"></script>
@@ -293,7 +358,7 @@ function openCart(){
       <p class="hint">Show this to the 4U Cafe' staff to place your order.</p>
       <div class="slip"><div class="sh"><b>4U CAFE'</b><span>No. ${placed.no}</span></div><div class="sd">${placed.date}</div><hr>${placed.lines.map(l=>`<div><span>${l.q}× ${esc(l.n)}<small>${esc(l.cat)}</small></span><span>${l.t.toFixed(2)}</span></div>`).join('')}<hr>
       <div><b>Total</b><b>${mvr(placed.total)}</b></div>${placed.note?`<hr><div><span>Note: ${esc(placed.note)}</span></div>`:''}</div></div>
-      <p class="hint" style="color:#2a1560;font-weight:600;margin-top:12px">Tap <b>Place the order</b> and choose Viber to send it to the Cafe\' number${CAFE_VIBER?': +'+CAFE_VIBER:''}.</p>
+      <p class="hint" style="color:#2a1560;font-weight:600;margin-top:12px">Tap <b>Place the order</b> and send it to the Cafe\' number${CAFE_VIBER?': +'+CAFE_VIBER:''}.</p>
       <button class="btn dl" data-dl><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow" d="M21 3L10 14M21 3l-7 18-4-7-7-4 18-7z"/></svg><span>Place the order</span></button>
       <button class="btn sec2" data-copy>Copy order text</button><button class="btn sec2" data-new>Start a new order</button>`;
   } else if(!ids.length){
@@ -363,13 +428,25 @@ function orderCanvas(o){
   y+=44; c.strokeStyle='#d9d0ff'; c.setLineDash([8,6]); c.beginPath(); c.moveTo(P,y); c.lineTo(W-P,y); c.stroke(); c.setLineDash([]);
   T('Thank you for ordering at 4U Cafe\u2019!',W/2,y+44,'700 26px '+F,'#2a1560','center');
   const by=y+74, bh=H-by; c.fillStyle='#2a1560'; c.fillRect(0,by,W,bh);
-  T('Please send this invoice to the Cafe\u2019 on Viber'+(CAFE_VIBER?' (+'+CAFE_VIBER+')':''),W/2,by+46,'600 22px '+F,'#fff','center');
+  T('Please send this invoice to the Cafe\u2019 number'+(CAFE_VIBER?' (+'+CAFE_VIBER+')':''),W/2,by+46,'600 22px '+F,'#fff','center');
   const lg=(im,h)=>im&&im.complete&&im.naturalWidth?{im,h,w:im.naturalWidth*h/im.naturalHeight}:null;
   const L=[lg(LOGO.ccs,60),lg(LOGO.amilla,44)].filter(Boolean), gap=36, tw=L.reduce((a,l)=>a+l.w,0)+gap*(L.length-1);
   let x=(W-tw)/2; L.forEach(l=>{c.drawImage(l.im,x,by+72+(60-l.h)/2,l.w,l.h); x+=l.w+gap});
   return cv;
 }
 function orderBlob(o){ return new Promise(r=>orderCanvas(o).toBlob(r,'image/png')) }
+function showSplash(){
+  const sp=$('#splash'), st=$('#spStatus'); sp.classList.remove('done'); $('#spNo').textContent=placed?'ORDER '+placed.no:'';
+  sp.querySelectorAll('.bp').forEach(e=>e.remove()); sp.classList.add('show');
+  const msgs=['Preparing your order…','Sending to the Cafe\u2019…','Serving it up…']; st.textContent=msgs[0];
+  [1,2].forEach(i=>setTimeout(()=>{ st.classList.add('out'); setTimeout(()=>{ st.textContent=msgs[i]; st.classList.remove('out') },250) },i*950));
+  setTimeout(()=>{ sp.classList.add('done'); if(navigator.vibrate) navigator.vibrate([20,50,20]);
+    const cols=['#ffd166','#7a58ff','#5fd68e','#fff','#ff8fab','#9ae3ff'], tk=$('#spTick').getBoundingClientRect();
+    for(let i=0;i<32;i++){ const p=document.createElement('i'), ang=Math.random()*Math.PI*2, d=110+Math.random()*150, z=5+Math.random()*7;
+      p.className='bp'; p.style.cssText=`width:${z}px;height:${z}px;background:${cols[i%6]};left:${tk.left+tk.width/2}px;top:${tk.top+tk.height/2}px;--dx:${Math.cos(ang)*d}px;--dy:${Math.sin(ang)*d}px;animation-delay:${.25+Math.random()*.15}s;${i%3?'':'border-radius:2px'}`; sp.appendChild(p) }
+  },2900);
+}
+function finishOrder(){ const sp=$('#splash'); sp.classList.remove('show','done'); sp.querySelectorAll('.bp').forEach(e=>e.remove()); placed=null; cart={}; save(); render(); closeCart() }
 async function placeOrder(btn){
   const label=btn.querySelector('span'), setIcon=h=>{btn.querySelector('svg')?.remove(); btn.insertAdjacentHTML('afterbegin',h)};
   const r=btn.getBoundingClientRect(), rp=document.createElement('i'), d=Math.max(r.width,40);
@@ -387,11 +464,11 @@ async function placeOrder(btn){
       const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=file.name;
       document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000);
       try{ await navigator.clipboard.writeText(text) }catch(e){}
-      if(CAFE_VIBER) setTimeout(()=>{ location.href='viber://chat?number=%2B'+CAFE_VIBER },900);
     }
   }catch(e){ if(e&&e.name==='AbortError'){ reset(); return } /* share failed: nothing sent */ reset(); return toast('Could not open sharing') }
   btn.classList.remove('busy'); btn.classList.add('ok'); setIcon(ICON_OK);
-  label.textContent = how==='share' ? 'Done! Make sure you picked Viber' : 'Saved! Now send it on Viber';
+  label.textContent = 'Order placed';
+  showSplash();
   if(navigator.vibrate) navigator.vibrate([15,40,15]);
   setTimeout(()=>{ if(btn.isConnected){ btn.classList.remove('ok'); setIcon(ICON_DL); label.textContent='Place the order again' } },3200);
 }
@@ -417,6 +494,7 @@ document.addEventListener('click',e=>{
     openCart();
   }
   else if('dl' in t.dataset) placeOrder(t);
+  else if('finish' in t.dataset) finishOrder();
   else if('copy' in t.dataset){ (navigator.clipboard?navigator.clipboard.writeText(orderText(placed)):Promise.reject()).then(()=>toast('Copied!'),()=>toast('Copy not available')) }
   else if('new' in t.dataset){ placed=null; cart={}; save(); render(); closeCart() }
   else if(t.id==='vegBtn'){ vegOnly=!vegOnly; t.classList.toggle('on',vegOnly); render() }
