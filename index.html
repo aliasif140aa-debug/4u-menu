@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="4U Cafe'">
+<meta name="theme-color" content="#2a1560">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<title>4U Cafe' Menu</title>
+<style>
+:root{
+  --bg:#2f1568; --bg2:#3b2088; --line:rgba(255,255,255,.1);
+  --accent:#7a58ff; --accent2:#9a82ff; --gold:#ffd166; --text:#fff; --muted:#c9bff3; --green:#6fcf62;
+  --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{touch-action:manipulation;background:var(--bg)}
+body{margin:0;color:var(--text);font-family:'Poppins',-apple-system,BlinkMacSystemFont,"SF Pro Text",Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;
+  padding-bottom:calc(100px + var(--safe-b));
+  background:
+    radial-gradient(60% 30% at 100% 0%,rgba(122,88,255,.35),transparent 70%),
+    radial-gradient(70% 30% at 0% 18%,rgba(111,207,98,.10),transparent 70%),
+    var(--bg);
+  background-repeat:no-repeat}
+/* hero */
+header{padding:calc(22px + var(--safe-t)) 18px 14px;text-align:center}
+.logos{display:flex;align-items:center;justify-content:center;gap:16px}
+.logos .ccs{height:46px;width:auto;border-radius:3px}
+.logos .am{height:34px;width:auto;opacity:.95}
+.logos i{width:1px;height:34px;background:rgba(255,255,255,.28)}
+.title{margin-top:20px;line-height:1}
+.title .t1{display:block;font-weight:300;font-size:30px;letter-spacing:.24em;padding-left:.24em}
+.title .t2{display:block;font-family:'Anton','Oswald',Impact,'Arial Narrow',sans-serif;font-weight:400;font-size:84px;letter-spacing:.02em;margin-top:2px;
+  background:linear-gradient(#fff 55%,#d9cfff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tag{margin:6px 0 0;color:var(--muted);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.search{margin-top:18px;display:flex;gap:10px;text-align:left}
+.search input{flex:1;min-width:0;border:1.5px solid rgba(255,255,255,.14);border-radius:16px;padding:14px 16px 14px 44px;font:inherit;font-size:16px;color:#fff;outline:none;
+  background:rgba(255,255,255,.08) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%23c9bff3' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='8' cy='8' r='6'/%3E%3Cpath d='M13 13l4 4'/%3E%3C/svg%3E") no-repeat 16px center}
+.search input:focus{border-color:var(--gold)}
+.search input::placeholder{color:var(--muted)}
+.chip{border:1.5px solid rgba(255,255,255,.14);border-radius:16px;padding:0 16px;background:rgba(255,255,255,.08);color:var(--muted);font:inherit;font-size:14px;font-weight:600;white-space:nowrap}
+.chip.on{background:var(--green);border-color:var(--green);color:#10300c}
+/* category tabs */
+nav{position:sticky;top:0;z-index:5;background:rgba(47,21,104,.98);padding:10px 0;border-bottom:1px solid var(--line)}
+nav .row{display:flex;gap:8px;overflow-x:auto;padding:0 18px;scrollbar-width:none}
+nav .row::-webkit-scrollbar{display:none}
+nav button{flex:none;border:1.5px solid rgba(255,255,255,.12);border-radius:22px;padding:8px 16px;font:inherit;font-size:13.5px;font-weight:600;background:transparent;color:var(--muted);transition:background .15s,color .15s}
+nav button.on{background:var(--gold);border-color:var(--gold);color:#2a1560}
+main{padding:0 18px}
+/* sections */
+.sec{margin-top:30px;scroll-margin-top:64px}
+.sec-h{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.sec-h img{width:58px;height:58px;object-fit:cover;border-radius:50%;border:2px solid var(--gold);background:#fff;flex:none}
+.sec-h h2{margin:0;font-size:21px;font-weight:700;letter-spacing:.01em;line-height:1.15}
+.sec-h span{display:inline-block;margin-top:4px;color:var(--muted);font-size:12px}
+.sec-h::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(255,209,102,.5),transparent);margin-left:4px;min-width:20px}
+/* items */
+.item{display:flex;align-items:center;gap:14px;border-radius:18px;padding:14px;margin-bottom:10px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.07)}
+.item img{width:76px;height:76px;object-fit:cover;border-radius:14px;flex:none;background:#fff}
+.info{flex:1;min-width:0}
+.name{font-size:15.5px;font-weight:600;line-height:1.3}
+.veg{display:inline-block;vertical-align:middle;margin-left:8px;padding:1px 7px;border-radius:8px;background:rgba(111,207,98,.18);color:var(--green);font-size:10px;font-weight:700;letter-spacing:.06em}
+.veg::before{content:"VEG"}
+.price{margin-top:6px;color:var(--gold);font-size:15px;font-weight:700}
+.add{flex:none;border:0;background:var(--gold);color:#2a1560;border-radius:50%;width:42px;height:42px;font-size:26px;line-height:1;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.28)}
+.qty{flex:none;display:flex;align-items:center;gap:2px;background:rgba(0,0,0,.28);border-radius:22px;padding:3px}
+.qty button{border:0;background:var(--gold);color:#2a1560;border-radius:50%;width:34px;height:34px;font-size:20px;line-height:1;font-weight:700}
+.qty b{min-width:28px;text-align:center;font-size:16px}
+.empty{text-align:center;color:var(--muted);padding:50px 0}
+/* footer */
+footer.note{margin:40px 18px 10px;padding-top:22px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:12px}
+footer .logos{margin-bottom:14px;opacity:.9}
+footer .logos .ccs{height:34px}footer .logos .am{height:26px}footer .logos i{height:26px}
+/* order bar */
+#bar{position:fixed;left:14px;right:14px;bottom:calc(14px + var(--safe-b));z-index:10;display:none;border:0;border-radius:20px;padding:15px 20px;
+  background:linear-gradient(90deg,#ffd166,#ffbf47);color:#2a1560;font:inherit;font-size:16px;font-weight:700;
+  justify-content:space-between;align-items:center;box-shadow:0 8px 22px rgba(0,0,0,.4);width:calc(100% - 28px)}
+#bar.show{display:flex}
+#bar .cnt{background:#2a1560;color:#fff;border-radius:12px;padding:2px 10px;margin-right:10px;font-size:14px;font-weight:700}
+/* sheet */
+#sheet{position:fixed;inset:0;z-index:20;display:none}
+#sheet.show{display:block}
+.panel{position:absolute;left:0;right:0;bottom:0;max-height:90%;overflow:auto;border-radius:26px 26px 0 0;padding:18px 18px calc(22px + var(--safe-b))}
+.panel::before{content:"";display:block;width:44px;height:5px;border-radius:3px;margin:-6px auto 14px}
+.panel h3{margin:0 0 4px;font-size:22px}
+.panel .x{position:absolute;right:14px;top:14px;border:0;border-radius:50%;width:32px;height:32px;font-size:18px}
+.line{display:flex;align-items:center;gap:10px;padding:14px 0}
+.line .n{flex:1;font-size:15px}.line .n small{display:block}
+.line .t{width:78px;text-align:right;font-weight:600;font-size:14px}
+.total{display:flex;justify-content:space-between;font-size:22px;font-weight:800;padding:16px 0 8px}
+textarea{width:100%;border:0;border-radius:14px;padding:13px;font:inherit;font-size:16px;margin-top:10px;resize:none;outline:none}
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:16px;font:inherit;font-size:16px;font-weight:700;margin-top:10px;color:#fff}
+.hint{font-size:13px;margin:6px 0 0}
+.done{text-align:center;padding:10px 0}
+.done .big{font-size:46px}
+.slip{background:#fff;color:#1b1040;border-radius:16px;padding:14px;margin-top:12px;text-align:left;font-size:15px}
+.slip div{display:flex;justify-content:space-between;padding:3px 0}
+.slip hr{border:0;border-top:1px dashed #b9aee8;margin:8px 0}
+.slip .sh{font-size:17px}.slip .sd{display:block;color:#6b5fa8;font-size:13px}.slip small{display:block;color:#8a80b8;font-size:12px}
+.toast{position:fixed;left:50%;top:calc(16px + var(--safe-t));transform:translateX(-50%);background:#fff;color:#1b1040;padding:10px 16px;border-radius:20px;font-size:14px;font-weight:600;z-index:30;opacity:0;transition:.25s;pointer-events:none}
+.toast.show{opacity:1}
+/* ---- animations + light order sheet ---- */
+#sheet{background:rgba(10,4,30,.6);opacity:0;transition:opacity .25s}
+#sheet.show{display:block;opacity:1;animation:fadeIn .25s ease}
+#sheet .panel{transform:translateY(100%);transition:transform .38s cubic-bezier(.22,1,.36,1)}
+#sheet.show .panel{transform:none;animation:sheetUp .42s cubic-bezier(.22,1,.36,1)}
+#sheet.closing{opacity:0}#sheet.closing .panel{transform:translateY(100%);transition:transform .25s ease-in}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+.panel{background:#f5f2ff;color:#1b1040}
+.panel::before{background:rgba(42,21,96,.2)}
+.panel h3{color:#2a1560}
+.panel .x{background:#e4ddfb;color:#2a1560}
+.panel .line{border-bottom:1px solid #e1daf7}
+.panel .line .n small{color:#7a6fb0}
+.panel .line .t{color:#2a1560}
+.panel .qty{background:#e4ddfb}
+.panel .qty b{color:#2a1560}
+.panel .total{color:#2a1560}
+.panel .total span:last-child{color:#5b36e8}
+.panel textarea{background:#fff;color:#1b1040;box-shadow:inset 0 0 0 1.5px #ddd5f7}
+.panel textarea::placeholder{color:#8a80b8}
+.panel .hint,.panel .empty{color:#6b5fa8}
+.panel .btn{background:linear-gradient(90deg,#6d4aff,#8f75ff);box-shadow:0 6px 14px rgba(109,74,255,.3)}
+.panel .btn.sec2{background:#e4ddfb;color:#4a2fc0;box-shadow:none}
+.panel .btn:active{transform:scale(.98)}
+.line{animation:rowIn .35s both}
+.line:nth-child(2){animation-delay:.04s}.line:nth-child(3){animation-delay:.08s}.line:nth-child(4){animation-delay:.12s}.line:nth-child(5){animation-delay:.16s}
+@keyframes rowIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.done .big{display:inline-block;animation:pop .6s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes pop{0%{transform:scale(0) rotate(-30deg)}100%{transform:scale(1) rotate(0)}}
+.done h3{animation:rowIn .4s .15s both}
+.done .hint{color:#2a1560!important}
+.slip{border:1.5px solid #e1daf7;box-shadow:0 8px 24px rgba(42,21,96,.12);animation:slipIn .55s .2s cubic-bezier(.22,1,.36,1) both;transform-origin:top}
+@keyframes slipIn{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
+.ctl .qty{animation:bump .25s ease}
+@keyframes bump{0%{transform:scale(.8)}60%{transform:scale(1.1)}100%{transform:scale(1)}}
+#bar.show{animation:barIn .4s cubic-bezier(.22,1,.36,1)}
+@keyframes barIn{from{transform:translateY(120%)}to{transform:none}}
+#bar.pulse{animation:barPulse .3s ease}
+@keyframes barPulse{50%{transform:scale(1.03)}}
+/* download button */
+.dl{display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden}
+.dl svg{width:22px;height:22px;flex:none}
+.dl .arrow{animation:none}
+.dl:not(.busy):not(.ok) .arrow{animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateY(-1.5px)}50%{transform:translateY(2.5px)}}
+.dl.busy{pointer-events:none}
+.dl.busy svg{display:none}
+.dl.busy::before{content:"";width:20px;height:20px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.dl.ok{background:linear-gradient(90deg,#2fb86a,#5fd68e)!important;pointer-events:none}
+.dl.ok .check{stroke-dasharray:30;stroke-dashoffset:30;animation:draw .45s .05s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.dl .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:rip .6s ease-out forwards;pointer-events:none}
+@keyframes rip{to{transform:scale(4);opacity:0}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+
+/* ---- item select animation ---- */
+.item{transition:background .25s,border-color .25s,box-shadow .25s}
+.item.in{background:#402a94;border-color:rgba(255,209,102,.55);box-shadow:0 0 0 1px rgba(255,209,102,.25)}
+.item.flash{animation:cardFlash .6s ease}
+@keyframes cardFlash{0%{transform:scale(1)}25%{transform:scale(.975);box-shadow:0 0 0 0 rgba(255,209,102,.7)}60%{transform:scale(1.012);box-shadow:0 0 0 10px rgba(255,209,102,0)}100%{transform:scale(1)}}
+.item.flash img{animation:imgPop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes imgPop{0%{transform:scale(1)}40%{transform:scale(1.12) rotate(-3deg)}100%{transform:scale(1) rotate(0)}}
+.ctl .qty{animation:none;transform-origin:right center}
+.ctl .qty.morph{animation:morph .45s cubic-bezier(.34,1.56,.64,1)}
+@keyframes morph{from{transform:scaleX(.35);opacity:0}to{transform:scaleX(1);opacity:1}}
+.qty b{display:inline-block}
+.qty b.tick-up{animation:tickUp .3s cubic-bezier(.22,1,.36,1)}
+.qty b.tick-dn{animation:tickDn .3s cubic-bezier(.22,1,.36,1)}
+@keyframes tickUp{from{transform:translateY(60%) scale(.7);opacity:0}to{transform:none;opacity:1}}
+@keyframes tickDn{from{transform:translateY(-60%) scale(.7);opacity:0}to{transform:none;opacity:1}}
+.qty button:active,.add:active{transform:scale(.85);transition:transform .08s}
+.fly{position:fixed;left:0;top:0;z-index:40;width:26px;height:26px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 35% 30%,#fff3c4,#ffd166 60%,#f0a93a);box-shadow:0 4px 12px rgba(0,0,0,.35);will-change:transform}
+#bar .cnt.hit{animation:cntHit .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes cntHit{0%{transform:scale(1)}40%{transform:scale(1.45)}100%{transform:scale(1)}}
+
+/* ---- final overrides ---- */
+.item.in{background:rgba(255,209,102,.1);border-color:rgba(255,209,102,.55);box-shadow:none}
+.panel .btn{background:linear-gradient(90deg,#6d4aff,#8f75ff)}
+.panel .total span:last-child{color:#5b36e8}
+#bar.pulse{animation:barPulse .3s ease}
+#bar .cnt.hit{animation:cntHit .4s cubic-bezier(.34,1.56,.64,1)}
+</style>
+</head>
+<body>
+<header>
+  <div class="logos"><img class="ccs" src="img/ccs.png" alt="Corporate Concierge Services"><i></i><img class="am" src="img/amilla.png" alt="Amilla Maldives"></div>
+  <div class="title"><span class="t1">4U CAFE'</span><span class="t2">MENU</span></div>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the menu…" autocomplete="off">
+    <button class="chip" id="vegBtn">🌱 Veg</button>
+  </div>
+</header>
+<nav><div class="row" id="tabs"></div></nav>
+<main id="menu"></main>
+<footer class="note"><div class="logos"><img class="ccs" src="img/ccs.png" alt=""><i></i><img class="am" src="img/amilla.png" alt=""></div>Prices in MVR · Ask staff about allergens</footer>
+
+<button id="bar"><span><span class="cnt" id="barCnt">0</span>View order</span><span id="barTotal"></span></button>
+<div id="sheet"><div class="panel" id="panel"></div></div>
+<div class="toast" id="toast"></div>
+
+<script src="menu.js"></script>
+<script>
+// flat list with ids
+const ITEMS = [];
+MENU.forEach(c => c.items.forEach((it,i) => ITEMS.push({id:c.id+'-'+i, cat:c.id, catName:c.name, name:it[0], price:it[1], img:it[2], veg:!!it[3]})));
+const byId = Object.fromEntries(ITEMS.map(i=>[i.id,i]));
+const IMG = n => 'img/'+n+(n==='ccs'||n==='amilla'?'.png':'.jpg');
+
+let cart = {}; try{ cart = JSON.parse(localStorage.getItem('4u-cart')||'{}') }catch(e){}
+let vegOnly = false, query = '', placed = null;
+const $ = s => document.querySelector(s);
+const mvr = n => 'MVR ' + n.toFixed(2);
+const save = () => { try{ localStorage.setItem('4u-cart', JSON.stringify(cart)) }catch(e){} };
+const esc = s => s.replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const count = () => Object.values(cart).reduce((a,b)=>a+b,0);
+const total = () => Object.entries(cart).reduce((a,[id,q])=>a+byId[id].price*q,0);
+
+function tabs(){
+  $('#tabs').innerHTML = MENU.map(c=>`<button data-c="${c.id}">${esc(c.name)}</button>`).join('');
+}
+const ctl = (id,n) => n?`<div class="qty"><button data-m="${id}">−</button><b>${n}</b><button data-p="${id}">+</button></div>`:`<button class="add" data-p="${id}" aria-label="Add">+</button>`;
+function render(){
+  const q = query.trim().toLowerCase();
+  let html = '';
+  MENU.forEach(c=>{
+    const list = ITEMS.filter(i=>i.cat===c.id && (!vegOnly||i.veg) && (!q || (i.name+' '+c.name).toLowerCase().includes(q)));
+    if(!list.length) return;
+    html += `<section class="sec" id="s-${c.id}"><div class="sec-h">${c.img?`<img src="${IMG(c.img)}" alt="">`:''}<div><h2>${esc(c.name)}</h2><span>${list.length} item${list.length>1?'s':''}</span></div></div>`;
+    list.forEach(i=>{
+      const n = cart[i.id]||0;
+      html += `<div class="item${n?' in':''}">${i.img?`<img src="${IMG(i.img)}" alt="">`:''}
+        <div class="info"><div class="name">${esc(i.name)}${i.veg?'<span class="veg" title="Vegetarian"></span>':''}</div><div class="price">${mvr(i.price)}</div></div>
+        <div class="ctl" data-ctl="${i.id}">${ctl(i.id,n)}</div></div>`;
+    });
+    html += '</section>';
+  });
+  $('#menu').innerHTML = html || '<div class="empty">Nothing found 🍽️</div>';
+  bar(); watch();
+}
+let lastN=0;
+function bar(){
+  const n = count();
+  $('#bar').classList.toggle('show', n>0);
+  if(n>lastN && n>1){const b=$('#bar');b.classList.remove('pulse');void b.offsetWidth;b.classList.add('pulse')} lastN=n;
+  $('#barCnt').textContent = n; $('#barTotal').textContent = mvr(total());
+}
+function fly(from){
+  if(!from.animate) return;
+  const r=from.getBoundingClientRect(), bar=$('#bar'), br=bar.classList.contains('show')?$('#barCnt').getBoundingClientRect():null;
+  const x0=r.left+r.width/2-13, y0=r.top+r.height/2-13;
+  const x1=br?br.left+br.width/2-13:innerWidth/2-13, y1=br?br.top+br.height/2-13:innerHeight-50;
+  const el=document.createElement('div'); el.className='fly'; document.body.appendChild(el);
+  const a=el.animate([
+    {transform:`translate(${x0}px,${y0}px) scale(1)`,opacity:1},
+    {transform:`translate(${(x0+x1)/2}px,${Math.min(y0,y1)-70}px) scale(1.1)`,opacity:1,offset:.45},
+    {transform:`translate(${x1}px,${y1}px) scale(.35)`,opacity:.9}
+  ],{duration:560,easing:'cubic-bezier(.4,0,.3,1)'});
+  a.onfinish=()=>{ el.remove(); const b=$('#bar'); b.classList.remove('pulse'); void b.offsetWidth; b.classList.add('pulse'); const c=$('#barCnt'); c.classList.remove('hit'); void c.offsetWidth; c.classList.add('hit') };
+}
+function change(id,d){
+  cart[id] = (cart[id]||0)+d; if(cart[id]<=0) delete cart[id];
+  save(); if(d>0 && navigator.vibrate) navigator.vibrate(10);
+  const n=cart[id]||0;
+  document.querySelectorAll('[data-ctl="'+id+'"]').forEach(e=>{
+    const wasAdd=!!e.querySelector('.add'); e.innerHTML=ctl(id,n);
+    const card=e.closest('.item'); if(!card) return;
+    card.classList.toggle('in',n>0);
+    if(d>0){ card.classList.remove('flash'); void card.offsetWidth; card.classList.add('flash') }
+    const q=e.querySelector('.qty'), b=e.querySelector('.qty b');
+    if(q&&wasAdd) q.classList.add('morph'); else if(b) b.classList.add(d>0?'tick-up':'tick-dn');
+  });
+  bar(); if($('#sheet').classList.contains('show')) openCart();
+}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
+
+function openCart(){
+  const ids = Object.keys(cart);
+  const p = $('#panel');
+  if(placed){
+    p.innerHTML = `<button class="x" data-close>✕</button><div class="done"><div class="big">✅</div><h3>Order ready</h3>
+      <p class="hint">Show this to the 4U Cafe' staff to place your order.</p>
+      <div class="slip"><div class="sh"><b>4U CAFE'</b><span>No. ${placed.no}</span></div><div class="sd">${placed.date}</div><hr>${placed.lines.map(l=>`<div><span>${l.q}× ${esc(l.n)}<small>${esc(l.cat)}</small></span><span>${l.t.toFixed(2)}</span></div>`).join('')}<hr>
+      <div><b>Total</b><b>${mvr(placed.total)}</b></div>${placed.note?`<hr><div><span>Note: ${esc(placed.note)}</span></div>`:''}</div></div>
+      <p class="hint" style="color:#2a1560;font-weight:600;margin-top:12px">Tap <b>Place the order</b> and choose Viber to send it to the Cafe\' number${CAFE_VIBER?': +'+CAFE_VIBER:''}.</p>
+      <button class="btn dl" data-dl><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow" d="M21 3L10 14M21 3l-7 18-4-7-7-4 18-7z"/></svg><span>Place the order</span></button>
+      ${CAFE_VIBER?`<a class="btn sec2" style="text-align:center;text-decoration:none" href="viber://chat?number=%2B${CAFE_VIBER}">Open Viber chat</a>`:''}
+      <button class="btn sec2" data-copy>Copy order text</button><button class="btn sec2" data-new>Start a new order</button>`;
+  } else if(!ids.length){
+    p.innerHTML = `<button class="x" data-close>✕</button><h3>Your order</h3><div class="empty">Your order is empty</div>`;
+  } else {
+    p.innerHTML = `<button class="x" data-close>✕</button><h3>Your order</h3>` +
+      ids.map(id=>{const i=byId[id],q=cart[id];return `<div class="line"><div class="n">${esc(i.name)}<small>${esc(i.catName)} · ${mvr(i.price)}</small></div>
+        <div class="qty"><button data-m="${id}">−</button><b>${q}</b><button data-p="${id}">+</button></div><div class="t">${(i.price*q).toFixed(2)}</div></div>`}).join('') +
+      `<div class="total"><span>Total</span><span>${mvr(total())}</span></div>
+      <textarea id="note" rows="2" placeholder="Notes (allergies, no onions, room / table…)">${esc(localStorage.getItem('4u-note')||'')}</textarea>
+      <button class="btn" data-place>Place order</button><button class="btn sec2" data-clear>Clear order</button>
+      <p class="hint">This shows an order summary to hand to staff. Nothing is sent online.</p>`;
+  }
+  $('#sheet').classList.add('show');
+}
+const CAFE_VIBER = '9607305314'; // cafe's Viber number with country code, digits only (e.g. '9607771234')
+const LOGO={}; ['ccs','amilla'].forEach(n=>{const i=new Image();i.src=IMG(n);LOGO[n]=i});
+function orderCanvas(o){
+  const F='-apple-system,Helvetica,Arial,sans-serif', W=800, P=48, S=2;
+  const m=document.createElement('canvas').getContext('2d');
+  const wrap=(t,max,font)=>{m.font=font;const out=[];let l='';t.split(' ').forEach(x=>{const n=l?l+' '+x:x;if(m.measureText(n).width>max&&l){out.push(l);l=x}else l=n});if(l)out.push(l);return out};
+  const nameW=W-P*2-70-150;
+  const rows=o.lines.map(l=>({q:l.q,unit:l.t/l.q,t:l.t,ls:wrap(l.n,nameW,'600 26px '+F),cat:l.cat}));
+  const noteLs=o.note?wrap(o.note,W-P*2-40,'24px '+F):[];
+  const rowH=r=>r.ls.length*32+(r.cat?28:0)+22;
+  const H=270+rows.reduce((a,r)=>a+rowH(r),0)+160+(noteLs.length?64+noteLs.length*32:0)+290;
+  const cv=document.createElement('canvas'); cv.width=W*S; cv.height=H*S;
+  const c=cv.getContext('2d'); c.scale(S,S);
+  const T=(t,x,y,font,col,al)=>{c.font=font;c.fillStyle=col;c.textAlign=al||'left';c.fillText(t,x,y)};
+  const rr=(x,y,w,h,r,col)=>{c.fillStyle=col;c.beginPath();c.roundRect(x,y,w,h,r);c.fill()};
+  c.fillStyle='#fff'; c.fillRect(0,0,W,H);
+  // header band
+  const g=c.createLinearGradient(0,0,W,190); g.addColorStop(0,'#2a1560'); g.addColorStop(1,'#6d4aff');
+  c.fillStyle=g; c.fillRect(0,0,W,190);
+  T("4U CAFE'",P,86,'900 54px '+F,'#fff');
+  T('Amilla Maldives',P,122,'24px '+F,'#d9d0ff');
+  T('ORDER INVOICE',W-P,80,'800 28px '+F,'#fff','right');
+  T('No. '+o.no,W-P,116,'24px '+F,'#d9d0ff','right');
+  T(o.date,W-P,148,'22px '+F,'#d9d0ff','right');
+  // table head
+  let y=190+34;
+  rr(P-12,y,W-P*2+24,46,10,'#f0ecff');
+  T('QTY',P,y+31,'700 20px '+F,'#6b5fa8'); T('ITEM',P+70,y+31,'700 20px '+F,'#6b5fa8');
+  T('PRICE',W-P-150,y+31,'700 20px '+F,'#6b5fa8','right'); T('AMOUNT',W-P,y+31,'700 20px '+F,'#6b5fa8','right');
+  y+=46;
+  rows.forEach((r,i)=>{
+    const h=rowH(r);
+    if(i%2) rr(P-12,y,W-P*2+24,h,0,'#faf8ff');
+    let ty=y+34;
+    T(r.q+'×',P,ty,'700 26px '+F,'#6d4aff');
+    r.ls.forEach((t,k)=>{T(t,P+70,ty+k*32,'600 26px '+F,'#1b1040')});
+    if(r.cat) T(r.cat,P+70,ty+r.ls.length*32-2,'20px '+F,'#8a80b8');
+    T(r.unit.toFixed(2),W-P-150,ty,'24px '+F,'#6b5fa8','right'); T(r.t.toFixed(2),W-P,ty,'700 26px '+F,'#1b1040','right');
+    y+=h;
+  });
+  y+=14; c.strokeStyle='#d9d0ff'; c.lineWidth=2; c.setLineDash([8,6]); c.beginPath(); c.moveTo(P,y); c.lineTo(W-P,y); c.stroke(); c.setLineDash([]);
+  y+=44; T('Items',P,y,'24px '+F,'#6b5fa8'); T(String(o.count),W-P,y,'24px '+F,'#1b1040','right');
+  y+=26; rr(P-12,y,W-P*2+24,76,16,'#2a1560');
+  T('TOTAL',P+8,y+49,'800 28px '+F,'#d9d0ff'); T(mvr(o.total),W-P-8,y+50,'900 38px '+F,'#fff','right');
+  y+=76;
+  if(noteLs.length){
+    y+=28; T('NOTE',P,y+8,'700 20px '+F,'#6b5fa8'); y+=14;
+    const nh=noteLs.length*32+22; rr(P-12,y,W-P*2+24,nh,12,'#f0ecff');
+    noteLs.forEach((t,k)=>T(t,P+4,y+34+k*32,'24px '+F,'#1b1040')); y+=nh;
+  }
+  // footer: thank-you + purple band with both logos
+  y+=44; c.strokeStyle='#d9d0ff'; c.setLineDash([8,6]); c.beginPath(); c.moveTo(P,y); c.lineTo(W-P,y); c.stroke(); c.setLineDash([]);
+  T('Thank you for ordering at 4U Cafe\u2019!',W/2,y+44,'700 26px '+F,'#2a1560','center');
+  const by=y+74, bh=H-by; c.fillStyle='#2a1560'; c.fillRect(0,by,W,bh);
+  T('Please send this invoice to the Cafe\u2019 on Viber'+(CAFE_VIBER?' (+'+CAFE_VIBER+')':''),W/2,by+46,'600 22px '+F,'#fff','center');
+  const lg=(im,h)=>im&&im.complete&&im.naturalWidth?{im,h,w:im.naturalWidth*h/im.naturalHeight}:null;
+  const L=[lg(LOGO.ccs,60),lg(LOGO.amilla,44)].filter(Boolean), gap=36, tw=L.reduce((a,l)=>a+l.w,0)+gap*(L.length-1);
+  let x=(W-tw)/2; L.forEach(l=>{c.drawImage(l.im,x,by+72+(60-l.h)/2,l.w,l.h); x+=l.w+gap});
+  return cv;
+}
+function orderBlob(o){ return new Promise(r=>orderCanvas(o).toBlob(r,'image/png')) }
+async function placeOrder(btn){
+  const label=btn.querySelector('span'), setIcon=h=>{btn.querySelector('svg')?.remove(); btn.insertAdjacentHTML('afterbegin',h)};
+  const r=btn.getBoundingClientRect(), rp=document.createElement('i'), d=Math.max(r.width,40);
+  rp.className='ripple'; rp.style.cssText=`width:${d/4}px;height:${d/4}px;left:${r.width/2-d/8}px;top:${r.height/2-d/8}px`; btn.appendChild(rp); setTimeout(()=>rp.remove(),700);
+  const reset=()=>{ if(!btn.isConnected) return; btn.classList.remove('busy','ok'); setIcon(ICON_DL); label.textContent='Place the order' };
+  btn.classList.add('busy'); label.textContent='Preparing…';
+  const blob=await (placed.blobP||(placed.blobP=orderBlob(placed)));
+  if(!blob){ reset(); return toast('Could not create the order') }
+  const file=new File([blob],'4U-Cafe-order-'+placed.no+'.png',{type:'image/png'}), text=orderText(placed);
+  let how='download';
+  try{
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({files:[file], title:"4U Cafe' order "+placed.no, text}); how='share';
+    } else {
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=file.name;
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+      try{ await navigator.clipboard.writeText(text) }catch(e){}
+      if(CAFE_VIBER) setTimeout(()=>{ location.href='viber://chat?number=%2B'+CAFE_VIBER },900);
+    }
+  }catch(e){ if(e&&e.name==='AbortError'){ reset(); return } /* share failed: nothing sent */ reset(); return toast('Could not open sharing') }
+  btn.classList.remove('busy'); btn.classList.add('ok'); setIcon(ICON_OK);
+  label.textContent = how==='share' ? 'Done! Make sure you picked Viber' : 'Saved! Now send it on Viber';
+  if(navigator.vibrate) navigator.vibrate([15,40,15]);
+  setTimeout(()=>{ if(btn.isConnected){ btn.classList.remove('ok'); setIcon(ICON_DL); label.textContent='Place the order again' } },3200);
+}
+const closeCart = () => { const sh=$('#sheet'); if(!sh.classList.contains('show')) return; sh.classList.add('closing'); setTimeout(()=>sh.classList.remove('show','closing'),260) };
+const ICON_DL=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow" d="M21 3L10 14M21 3l-7 18-4-7-7-4 18-7z"/></svg>`, ICON_OK=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path class="check" d="M5 12.5l4.5 4.5L19 7.5"/></svg>`;
+function orderText(o){ return "4U Cafe' order "+o.no+"\n"+o.lines.map(l=>`${l.q}x ${l.n} (${l.cat}) - ${l.t.toFixed(2)}`).join('\n')+`\nTotal: ${mvr(o.total)}`+(o.note?`\nNote: ${o.note}`:''); }
+
+document.addEventListener('click',e=>{
+  const t = e.target.closest('button'); if(!t && e.target.id==='sheet'){closeCart();return}
+  if(!t) return;
+  if(t.dataset.p){ if(!$('#sheet').classList.contains('show')) fly(t); change(t.dataset.p,1) }
+  else if(t.dataset.m) change(t.dataset.m,-1);
+  else if(t.dataset.c){ const s=document.getElementById('s-'+t.dataset.c); if(s){ s.scrollIntoView({behavior:'smooth',block:'start'}) } else toast('Not in current filter') }
+  else if(t.id==='bar'){ openCart() }
+  else if('close' in t.dataset) closeCart();
+  else if('clear' in t.dataset){ cart={}; save(); render(); closeCart() }
+  else if('place' in t.dataset){
+    const note = ($('#note').value||'').trim(); try{localStorage.setItem('4u-note',note)}catch(e){}
+    const d=new Date(), z=n=>String(n).padStart(2,'0');
+    placed = {no:'4U-'+z(d.getMonth()+1)+z(d.getDate())+'-'+z(d.getHours())+z(d.getMinutes()), date:d.toLocaleString([], {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}), count:count(),
+      lines:Object.entries(cart).map(([id,q])=>({q,n:byId[id].name,cat:byId[id].catName,t:byId[id].price*q})), total:total(), note};
+    placed.blobP=orderBlob(placed);
+    openCart();
+  }
+  else if('dl' in t.dataset) placeOrder(t);
+  else if('copy' in t.dataset){ (navigator.clipboard?navigator.clipboard.writeText(orderText(placed)):Promise.reject()).then(()=>toast('Copied!'),()=>toast('Copy not available')) }
+  else if('new' in t.dataset){ placed=null; cart={}; save(); render(); closeCart() }
+  else if(t.id==='vegBtn'){ vegOnly=!vegOnly; t.classList.toggle('on',vegOnly); render() }
+});
+let qt; let io; function watch(){
+  if(io) io.disconnect(); if(!('IntersectionObserver' in window)) return;
+  io=new IntersectionObserver(es=>{es.forEach(en=>{ if(en.isIntersecting){ const id=en.target.id.slice(2); document.querySelectorAll('#tabs button').forEach(b=>{const on=b.dataset.c===id; b.classList.toggle('on',on); if(on&&!b.matches(':hover')){ const r=$('#tabs'); r.scrollTo({left:b.offsetLeft-16,behavior:'smooth'}) }}) } })},{rootMargin:'-70px 0px -75% 0px'});
+  document.querySelectorAll('.sec').forEach(e=>io.observe(e));
+}
+$('#q').addEventListener('input',e=>{query=e.target.value;clearTimeout(qt);qt=setTimeout(render,200)});
+
+// highlight current tab on scroll
+const tabEls = () => [...document.querySelectorAll('#tabs button')];
+addEventListener('scroll',()=>{
+  let cur = null;
+  MENU.forEach(c=>{const s=document.getElementById('s-'+c.id); if(s && s.getBoundingClientRect().top<120) cur=c.id});
+  tabEls().forEach(b=>{const on=b.dataset.c===cur; b.classList.toggle('on',on); if(on) b.scrollIntoView({inline:'center',block:'nearest'})});
+},{passive:true});
+
+tabs(); render();
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
